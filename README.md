@@ -1,40 +1,44 @@
-# Project Title
+# Little Git Shop
 
-One Paragraph of project description goes here
+We have built an online e-commerce platform to sell local artisan goods. Our site allows users to add items to a cart and check out to purchase them from merchants. Merchants may log in to purchase items, add items to their own inventories, enable and disable items, fulfill orders, and edit existing items available.  Admin users have access to change user status from merchants to regular users and vice versa, disable and enable users and merchants, have access to additional analytics, and cancel orders.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+From GitHub clone down repository using the following commands in terminal:
+* git clone git@github.com:jplao/little_shop_v2.git
+* cd little_shop_v2
+
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You will need Rails installed and verify that it is version 5.1 and NOT 5.2
 
-```
-Give examples
-```
+To check your version using terminal run: rails -v in the command line.
+If you have not installed rails, in terminal run: gem install rails -v 5.1 in the command line.
+
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Open terminal and run these commands:
+* bundle
+* bundle update
+* rake db:{drop,create,migrate,seed}
+* rails s
 
-Say what the step will be
+Open up a web browser (preferably Chrome)
 
-```
-Give the example
-```
+Navigate to localhost:3000 (a landing page should be displayed)
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+* Note: Before running RSpec, ensure you're in the project root directory.
+
+From terminal run: rspec
+
+After RSpec has completed, you should see all tests passing as GREEN.  Any tests that have failed or thrown an error will display RED.  Any tests that have been skipped will be displayed as YELLOW.
+
 
 ### Break down into end to end tests
 
@@ -52,36 +56,39 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+* Rails
+* RSpec
+* ShouldaMatchers
+* Capybara
+* Launchy
+* Pry
+* SimpleCov
+* FactoryBot
+* BCrypt
+* Blood
+* Sweat
+* Tears
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+GitHub
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* Bailey Diveley - Github: BDiveley
+* Jennifer Lao - Github: jplao
+* Preston Jarnagin - Github: PrestonJarnagin
+* Ryan McNeil - Github: ryan-mcneil
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Ian Douglas
+* Dione Wilson
+* Sal Espinosa
+* Brian Zanti
+* Megan McMahon
+* coffee
