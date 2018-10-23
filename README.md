@@ -68,6 +68,7 @@ Give an example
 * SimpleCov
 * FactoryBot
 * BCrypt
+* PostreSQL
 * Blood
 * Sweat
 * Tears
