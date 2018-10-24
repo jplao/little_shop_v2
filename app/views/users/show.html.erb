@@ -1,0 +1,17 @@
+<div class="user-data">
+  <%= @user.name  %>
+  <%= @user.street_address  %>
+  <%= @user.city  %>
+  <%= @user.state  %>
+  <%= @user.zip  %>
+  <%= @user.email  %>
+</div>
+<div class="user-stats">
+  <h2>Statistics</h2>
+</div>
+
+<% if @user.orders.length > 0 %>
+  <%= link_to "My Orders", profile_orders_path(@user) %>
+<% end %>
+
+<%= link_to "Edit Profile", profile_edit_path(@user) %>
