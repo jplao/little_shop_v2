@@ -12,8 +12,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    redirect_to "/profile/#{@user.id}", notice: "Your Data Has Been Updated"
+    no_empty_params = user_params.reject { |k,v| v.empty? }
+    if @user.authenticate(no_empty_params[:password])
+      @user.update(no_empty_params)
+      redirect_to "/profile/#{@user.id}", notice: "Your Data Has Been Updated"
+    elsif !no_empty_params[:password]
+      redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter Password Before Making Changes"
+    else
+      redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter CORRECT Password Before Making Changes"
+    end
   end
 
   private
