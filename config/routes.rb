@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
 
-  get '/profile', to: 'users#show'
+  get '/profile/:id', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   put '/profile/edit', to: 'users#update'
   get '/profile/orders', to: 'orders#index'
