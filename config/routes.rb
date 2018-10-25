@@ -9,21 +9,20 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/users', to: 'users#create'
 
-
   get '/profile', to: 'users#show'
   get '/profile/edit/', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'
 
-  get '/dashboard', to: 'users#show'
+  get '/dashboard', to: 'dashboard#show'
   get '/dashboard/items', to: 'items#index'
   get '/dashboard/items/new', to: 'items#new'
 
   resources :orders, only: [:index, :show, :destroy] 
 
-  resources :carts, only: [:create] #revisit after cart class
+  resources :carts, only: [:create] 
   get '/cart', to: 'carts#index'
 
-  resources :users, only: [:index, :show, :update] #move to admin?
+  resources :users, only: [:show, :update]
 
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
@@ -31,7 +30,7 @@ Rails.application.routes.draw do
   get '/merchants/:id', to: 'users#show'
 
   namespace :admin do
-    resources :users, only: [:index, :update, :destroy] #add edit here?
+    resources :users, only: [:index, :update, :destroy]
     resources :orders, only: [:update, :edit]
   end
 end
