@@ -1,0 +1,7 @@
+<% @items.each do |item| %>
+  <%= link_to item.name, item_path(item) %>
+  <%= item.user.name %>
+  <%= link_to item.image, item_path(item) %>
+  <%= item.inventory_count %>
+  <%= item.price %>
+<% end %>
