@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
 
-  get '/profile', to: 'users#show'
+  get '/profile/:id', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   put '/profile/edit', to: 'users#update'
   get '/profile/orders', to: 'orders#index'
@@ -22,13 +22,17 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :show] #should destroy be here or within profile?
 
   resources :carts, only: [:create] #revisit after cart class
-
+  get '/cart', to: 'carts#index'
+  
   resources :users, only: [:index, :show] #move to admin?
 
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
+  get '/merchants', to: 'users#index'
+  get '/merchants/:id', to: 'users#show'
+
   namespace :admin do
-    resources :users, only: [:update, :destroy] #add edit here?
+    resources :users, only: [:index, :update, :destroy] #add edit here?
     resources :orders, only: [:update, :edit]
   end
 end
