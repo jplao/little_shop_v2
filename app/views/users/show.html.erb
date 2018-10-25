@@ -14,4 +14,4 @@
 <% if @user.orders.length > 0 %>
   <%= link_to "My Orders", profile_orders_path(@user) %>
 <% end %>
-<%= link_to "Edit Profile", "/profile/#{@user.id}/edit" %>
+<%= link_to "Edit Profile", profile_edit_path %>
