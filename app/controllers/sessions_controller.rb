@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
 
   def new
+    if current_user
+      redirect_to profile_path, notice: "You are already logged in"
+    end
   end
 
   def create
