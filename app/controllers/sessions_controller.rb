@@ -17,4 +17,10 @@ class SessionsController < ApplicationController
       redirect_to login_path, notice: "Could not log in. Please try again."
     end
   end
+
+  def destroy
+    session.delete(:user_id)
+    binding.pry
+    redirect_to root_path, notice: "You have successfully logged out"
+  end
 end
