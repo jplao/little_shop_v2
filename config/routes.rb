@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post '/register', to: 'users#create'
 
   get '/profile/:id', to: 'users#show'
-  put '/profile/:id', to: 'users#update'
+  post '/profile/:id', to: 'users#update'
   get '/profile/:id/edit/', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'
   delete '/profile/orders/:id', to: 'orders#destroy'  #should destroy be here or within resources :orders?

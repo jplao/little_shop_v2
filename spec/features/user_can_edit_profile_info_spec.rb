@@ -13,13 +13,13 @@ describe 'when a user visits profile edit page' do
     name = "New Name"
     city = "New City"
     email = "NewEmail@mail.com"
-    fill_in :name, with: name
-    fill_in :city, with: city
-    fill_in :email, with: email
+    fill_in :profile_name, with: name
+    fill_in :profile_city, with: city
+    fill_in :profile_email, with: email
     click_on "Edit User"
 
-    expect(current_path).to eq("profile/#{user.id}")
-    expect(flash[:message]).to_not be_nil
+    expect(current_path).to eq("/profile/#{user.id}")
+    expect(page).to have_content("Your Data Has Been Updated")
   end
 
 end

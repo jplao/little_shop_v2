@@ -1,4 +1,4 @@
-<%= form_for @user do |f| %>
+<%= form_for :profile, :url => {:action => "update", :id => @user} do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, placeholder: @user.name %>
 
@@ -20,5 +20,5 @@
   <%= f.label :email %>
   <%= f.text_field :email, placeholder: @user.email %>
 
-  <%= f.submit %>
+  <%= f.submit "Edit User" %>
 <% end %>
