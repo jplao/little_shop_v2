@@ -1,0 +1,24 @@
+<%= form_for @user do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, placeholder: @user.name %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address, placeholder: @user.street_address %>
+
+  <%= f.label :city %>
+  <%= f.text_field :city, placeholder: @user.city%>
+
+  <%= f.label :state %>
+  <%= f.text_field :state, placeholder: @user.state %>
+
+  <%= f.label :zip %>
+  <%= f.number_field :zip, placeholder: @user.zip %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, placeholder: @user.email %>
+
+  <%= f.submit %>
+<% end %>
