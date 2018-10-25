@@ -21,6 +21,8 @@ class UsersController < ApplicationController
       redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter Password Before Making Changes"
     else
       redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter CORRECT Password Before Making Changes"
+    end
+  end
 
   def new
     @user = User.new
@@ -40,7 +42,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:profile).permit(:name, :city, :street_address,\
-      :state, :zip, :password, :email, :password_confirmation))
+      :state, :zip, :password, :email, :password_confirmation)
   end
 
   def set_user
