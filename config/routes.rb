@@ -17,12 +17,12 @@ Rails.application.routes.draw do
   get '/dashboard/items', to: 'items#index'
   get '/dashboard/items/new', to: 'items#new'
 
-  resources :orders, only: [:index, :show, :destroy] 
+  resources :orders, only: [:index, :show, :destroy]
 
-  resources :carts, only: [:create] 
+  resources :carts, only: [:create]
   get '/cart', to: 'carts#index'
 
-  resources :users, only: [:show, :update]
+  resources :users, only: [:show, :update, :edit]
 
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 

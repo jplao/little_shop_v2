@@ -1,14 +1,21 @@
 require 'rails_helper'
-
 describe 'when a user visits profile edit page' do
+  before(:each) do
+    user = create(:user)
+
+    visit root_path
+    click_on "Log In"
+    fill_in :name, with: user.name
+    fill_in :password, with, user.password
+  end
 
   it 'user can make changes to their profile' do
     user = create(:user)
-    visit "/profile/#{user.id}"
+    visit profile_path
 
     click_on "Edit Profile"
 
-    expect(current_path).to eq("/profile/#{user.id}/edit")
+    expect(current_path).to eq(profile_edit_path)
 
     name = "New Name"
     city = "New City"
@@ -19,7 +26,7 @@ describe 'when a user visits profile edit page' do
     fill_in :profile_password, with: user.password
     click_on "Edit User"
 
-    expect(current_path).to eq("/profile/#{user.id}")
+    expect(current_path).to eq(profile_path)
     expect(page).to have_content("Your Data Has Been Updated")
     expect(page).to have_content(name)
     expect(page).to have_content(city)
@@ -29,11 +36,11 @@ describe 'when a user visits profile edit page' do
 
   it 'user cant make changes to their profile without password' do
     user = create(:user)
-    visit "/profile/#{user.id}"
+    visit profile_path
 
     click_on "Edit Profile"
 
-    expect(current_path).to eq("/profile/#{user.id}/edit")
+    expect(current_path).to eq(profile_edit_path)
 
     name = "New Name"
     city = "New City"
@@ -43,17 +50,17 @@ describe 'when a user visits profile edit page' do
     fill_in :profile_email, with: email
     click_on "Edit User"
 
-    expect(current_path).to eq("/profile/#{user.id}/edit")
+    expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("Please Enter Password Before Making Changes")
   end
 
   it 'user cant make changes to their profile without correct password' do
     user = create(:user)
-    visit "/profile/#{user.id}"
+    visit profile_path
 
     click_on "Edit Profile"
 
-    expect(current_path).to eq("/profile/#{user.id}/edit")
+    expect(current_path).to eq(profile_edit_path)
 
     name = "New Name"
     city = "New City"
@@ -64,8 +71,7 @@ describe 'when a user visits profile edit page' do
     fill_in :profile_password, with: "Wrong password"
     click_on "Edit User"
 
-    expect(current_path).to eq("/profile/#{user.id}/edit")
+    expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("Please Enter CORRECT Password Before Making Changes")
   end
-
 end
