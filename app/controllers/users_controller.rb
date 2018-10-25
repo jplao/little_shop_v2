@@ -4,7 +4,6 @@ class UsersController < ApplicationController
     if params[:id]
       @user = User.find(params[:id])
     else
-      # binding.pry
       @user = current_user
     end
     # The route for this has been changed. It will need to
@@ -22,10 +21,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      # binding.pry
       redirect_to profile_path, notice: "You have successfully registered and have been logged in"
     else
-      # flash.now[:error] = "Some fields were missing or incorrectly entered. Please try again."
       redirect_to register_path, notice: "Some fields were missing or incorrectly entered. Please try again."
     end
   end
