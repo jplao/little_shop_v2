@@ -11,7 +11,7 @@ describe 'Navigation' do
       expect(page).to have_link('All Items')
       expect(page).to have_link('All Merchants')
       expect(page).to have_link('Shopping Cart')
-      expect(page).to have_link('Login')
+      expect(page).to have_link('Log In')
       expect(page).to have_link('Register')
 
     end
