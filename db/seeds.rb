@@ -13,7 +13,7 @@
               city: Faker::Address.city,
               state: Faker::Address.state_abbr,
               zip: Faker::Address.zip,
-              email: Faker::Internet.email.unique,
+              email: Faker::Internet.unique.email,
               password: Faker::Internet.password,
               role: 1)
 end
@@ -22,7 +22,7 @@ end
 User.all.each do |user|
   number_of_items = rand(0..15)
   number_of_items.times do
-    name = Faker::Hipster.sentence(2)
+    name = Faker::Hipster.unique.sentence(2)
     description = Faker::Hipster.paragraph(2, true, 4)
     image = Faker::Placeholdit.image('50x50', 'jpg')
     price = Faker::Commerce.price(range = 0..10.0, as_string = true)
@@ -37,7 +37,7 @@ end
               city: Faker::Address.city,
               state: Faker::Address.state_abbr,
               zip: Faker::Address.zip,
-              email: Faker::Internet.email.unique,
+              email: Faker::Internet.unique.email,
               password: Faker::Internet.password,
             )
 end
@@ -48,6 +48,6 @@ User.create(name: Faker::FunnyName.two_word_name,
             city: Faker::Address.city,
             state: Faker::Address.state_abbr,
             zip: Faker::Address.zip,
-            email: Faker::Internet.email.unique,
+            email: Faker::Internet.unique.email,
             password: Faker::Internet.password,
             role: 2)
