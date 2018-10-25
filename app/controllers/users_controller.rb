@@ -1,23 +1,32 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
 
   def show
     if params[:id]
-      @user = User.find(params[:id])
+      @user
     else
       @user = current_user
     end
-    # The route for this has been changed. It will need to
-    # be changed back when we have access to session data for
-    # this user
-    # @user = User.find(sessions[:id])
   end
+
+  def edit
+  end
+
+  def update
+    no_empty_params = user_params.reject { |k,v| v.empty? }
+    if @user.authenticate(no_empty_params[:password])
+      @user.update(no_empty_params)
+      redirect_to "/profile/#{@user.id}", notice: "Your Data Has Been Updated"
+    elsif !no_empty_params[:password]
+      redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter Password Before Making Changes"
+    else
+      redirect_to "/profile/#{@user.id}/edit", notice: "Please Enter CORRECT Password Before Making Changes"
 
   def new
     @user = User.new
   end
 
   def create
-    # binding.pry
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
@@ -30,7 +39,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :street_address, :city, :state, :zip, :email, :password, :password_confirmation)
+    params.require(:profile).permit(:name, :city, :street_address,\
+      :state, :zip, :password, :email, :password_confirmation))
   end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
 end
