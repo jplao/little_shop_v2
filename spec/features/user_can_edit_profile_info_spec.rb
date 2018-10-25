@@ -1,16 +1,16 @@
 require 'rails_helper'
 describe 'when a user visits profile edit page' do
   before(:each) do
-    user = create(:user)
+    @user = create(:user)
 
     visit root_path
     click_on "Log In"
-    fill_in :name, with: user.name
-    fill_in :password, with, user.password
+    fill_in :name, with: @user.name
+    fill_in :password, with: @user.password
+    click_on "Log In"
   end
 
   it 'user can make changes to their profile' do
-    user = create(:user)
     visit profile_path
 
     click_on "Edit Profile"
@@ -23,7 +23,7 @@ describe 'when a user visits profile edit page' do
     fill_in :profile_name, with: name
     fill_in :profile_city, with: city
     fill_in :profile_email, with: email
-    fill_in :profile_password, with: user.password
+    fill_in :profile_password, with: @user.password
     click_on "Edit User"
 
     expect(current_path).to eq(profile_path)
@@ -31,7 +31,7 @@ describe 'when a user visits profile edit page' do
     expect(page).to have_content(name)
     expect(page).to have_content(city)
     expect(page).to have_content(email)
-    expect(page).to have_content(user.zip)
+    expect(page).to have_content(@user.zip)
   end
 
   it 'user cant make changes to their profile without password' do
