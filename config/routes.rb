@@ -7,32 +7,30 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/register', to: 'users#new'
-  post '/register', to: 'users#create'
+  post '/users', to: 'users#create'
 
   get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
-  put '/profile/edit', to: 'users#update'
+  get '/profile/edit/', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'
-  delete '/profile/orders/:id', to: 'orders#destroy'  #should destroy be here or within resources :orders?
 
   get '/dashboard', to: 'dashboard#show'
   get '/dashboard/items', to: 'items#index'
   get '/dashboard/items/new', to: 'items#new'
 
-  resources :orders, only: [:index, :show] #should destroy be here or within profile?
+  resources :orders, only: [:index, :show, :destroy] 
 
-  resources :carts, only: [:create] #revisit after cart class
+  resources :carts, only: [:create] 
   get '/cart', to: 'carts#index'
+
+  resources :users, only: [:show, :update]
 
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
   get '/merchants', to: 'users#index'
   get '/merchants/:id', to: 'users#show'
 
-  resources :users, only: [:show]
-
   namespace :admin do
-    resources :users, only: [:index, :update, :destroy] #add edit here?
+    resources :users, only: [:index, :update, :destroy]
     resources :orders, only: [:update, :edit]
   end
 end
