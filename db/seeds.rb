@@ -51,3 +51,20 @@ User.create(name: Faker::FunnyName.two_word_name,
             email: Faker::Internet.unique.email,
             password: Faker::Internet.password,
             role: 2)
+
+# User Orders
+User.all.each do |user|
+  number_of_orders = rand(0..15)
+  number_of_orders.times do
+    order = user.orders.create()
+  end
+end
+
+# Order Items
+Order.all.each do |order|
+  number_of_items = rand(0..10)
+  number_of_items.times do
+    item = Item.all.shuffle.pop
+    order_item = order.order_items.create(item_id: item.id, item_price: item.price, item_quantity: rand(0..10))
+  end
+end
