@@ -3,8 +3,10 @@ class UsersController < ApplicationController
   def show
     if params[:id]
       @user = User.find(params[:id])
-    else
+    elsif current_user
       @user = current_user
+    else
+      redirect_to login_path, notice: "You are not logged in"
     end
   end
 
