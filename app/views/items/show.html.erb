@@ -1,0 +1,9 @@
+<%= @item.name %>
+<%= @item.description %>
+
+  <img src=<%= @item.image %>>
+
+<%= @item.user.name %>
+<%= @item.inventory_count %>
+<%= @item.price %>
+<%= link_to "Add to Cart", carts_path %>
