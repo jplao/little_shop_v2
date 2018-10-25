@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'loging process' do
+describe 'log in process' do
   before :each do
     @user = create(:user)
   end
@@ -44,5 +44,20 @@ describe 'loging process' do
     expect(current_path).to eq(login_path)
     expect(page).to have_content("Could not log in. Please try again.")
     expect(page).to have_button("Log In")
+  end
+
+  it 'should redirect if already logged in' do
+    visit root_path
+    click_on "Log In"
+    fill_in :name, with: @user.name
+    fill_in :password, with: @user.password
+    click_on "Log In"
+
+    expect(current_path).to eq(profile_path)
+
+    visit login_path
+
+    expect(current_path).to eq(profile_path)
+    expect(page).to have_content("You are already logged in")
   end
 end
