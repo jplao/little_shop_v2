@@ -5,7 +5,7 @@ describe 'log out process' do
     @user = create(:user)
     visit root_path
     click_on "Log In"
-    fill_in :name, with: @user.name
+    fill_in :email, with: @user.email
     fill_in :password, with: @user.password
     click_on "Log In"
   end

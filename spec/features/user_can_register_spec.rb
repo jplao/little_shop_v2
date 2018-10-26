@@ -59,7 +59,6 @@ describe 'user registration' do
     fill_in :user_password, with: user_2.password
     fill_in :user_password_confirmation, with: user_2.password
     click_on 'Create User'
-    save_and_open_page
 
     expect(current_path).to eq(register_path)
     expect(page).to have_content(flash)
