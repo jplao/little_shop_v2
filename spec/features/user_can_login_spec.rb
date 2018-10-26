@@ -8,13 +8,13 @@ describe 'log in process' do
   it 'should succeed if credentials are correct' do
     visit root_path
 
-    click_on 'Log In'
+    click_link 'Log In'
     expect(current_path).to eq(login_path)
 
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
 
-    click_on 'Log In'
+    click_button 'Log In'
     expect(current_path).to eq(profile_path)
     expect(page).to have_content("You have successfully logged in")
   end
@@ -22,13 +22,13 @@ describe 'log in process' do
   it 'should fail if password is incorrect' do
     visit root_path
 
-    click_on 'Log In'
+    click_link 'Log In'
     expect(current_path).to eq(login_path)
 
     fill_in :email, with: @user.email
     fill_in :password, with: 'badpassword'
 
-    click_on 'Log In'
+    click_button 'Log In'
     expect(current_path).to eq(login_path)
     expect(page).to have_content("Password does not match username. Please try again.")
     expect(page).to have_button("Log In")
@@ -37,10 +37,10 @@ describe 'log in process' do
   it 'should fail if credentials are empty' do
     visit root_path
 
-    click_on 'Log In'
+    click_link 'Log In'
     expect(current_path).to eq(login_path)
 
-    click_on 'Log In'
+    click_button 'Log In'
     expect(current_path).to eq(login_path)
     expect(page).to have_content("Could not log in. Please try again.")
     expect(page).to have_button("Log In")
@@ -51,7 +51,7 @@ describe 'log in process' do
     click_on "Log In"
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
-    click_on "Log In"
+    click_button "Log In"
 
     expect(current_path).to eq(profile_path)
 

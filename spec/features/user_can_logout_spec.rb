@@ -7,13 +7,13 @@ describe 'log out process' do
     click_on "Log In"
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
-    click_on "Log In"
+    click_button "Log In"
   end
 
   it 'should log out user' do
     visit root_path
 
-    click_on 'Log Out'
+    click_link 'Log Out'
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content("You have successfully logged out")

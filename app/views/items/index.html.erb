@@ -1,7 +1,13 @@
+<h2>All Items</h2>
+
+<div class='items'>
 <% @items.each do |item| %>
-    <%= link_to item.name, item_path(item) %>
-    <%= item.user.name %>
+  <div class='each_item' id="item#{item.id}">
     <%= link_to image_tag(item.image, alt: "image-#{item.id}"), item_path(item) %>
-    <%= item.inventory_count %>
-    <%= item.price %>
+    <br><br><%= link_to item.name, item_path(item) %>
+    <br><br>Merchant: <%= item.user.name %>
+    <br>Inventory count: <%= item.inventory_count %>
+    <br>Item price: $<%= item.price %>
+  </div>
 <% end %>
+</div>
