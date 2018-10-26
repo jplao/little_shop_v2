@@ -52,3 +52,22 @@ header {
   display: flex;
   justify-content: space-around;
 }
+
+.user{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.user-data{
+  background-color: #D7D8DC;
+  text-align: center;
+  box-shadow: 10px 10px 8px #888888;
+  margin: 20px;
+}
+
+.user-stats{
+  background-color: #D7D8DC;
+  text-align: center;
+  box-shadow: 10px 10px 8px #888888;
+  margin: 20px;
+}

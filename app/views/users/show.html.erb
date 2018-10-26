@@ -1,17 +1,21 @@
+<h2> Welcome back <%= @user.name %>! </h2>
+<section class='user'>
+  <div class="user-data">
+    <h2>User info:</h2>
+    <strong>Street Address: </strong><%= @user.street_address %><br>
+    <strong>City: </strong><%= @user.city %><br>
+    <strong>State: </strong><%= @user.state %><br>
+    <strong>Zip: </strong><%= @user.zip %><br>
+    <strong>Email: </strong><%= @user.email %><br>
+    <%= link_to "Edit Profile", profile_edit_path %><br><br>
+  </div>
 
-<div class="user-data">
-  <%= @user.name  %>
-  <%= @user.street_address  %>
-  <%= @user.city  %>
-  <%= @user.state  %>
-  <%= @user.zip  %>
-  <%= @user.email  %>
-</div>
-<div class="user-stats">
-  <h2>Statistics</h2>
-</div>
-
+  <div class="user-stats">
+    <h2>Statistics</h2>
+  </div>
+</section>
+<br>
+<h2>Orders</h2>
 <% if @user.orders.length > 0 %>
   <%= link_to "My Orders", profile_orders_path(@user) %>
 <% end %>
-<%= link_to "Edit Profile", profile_edit_path %>
