@@ -76,4 +76,19 @@ describe 'when a user visits profile edit page' do
     expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("Please Enter CORRECT Password Before Making Changes")
   end
+
+  it 'user cant update their email to one that one that already exists' do
+    user_2 = create(:user)
+    original_email = @user.email
+
+    visit profile_path
+    click_on "Edit Profile"
+
+    fill_in :profile_email, with: user_2.email
+    fill_in :profile_password, with: @user.password
+    click_on "Edit User"
+    expect(current_path).to eq(profile_edit_path)
+    expect(page).to have_content("That Email Is Already in Use")
+    expect(@user.email).to eq(original_email)
+  end
 end

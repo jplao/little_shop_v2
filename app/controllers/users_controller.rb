@@ -22,8 +22,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     no_empty_params = user_params.reject { |k,v| v.empty? }
     if @user.authenticate(no_empty_params[:password])
-      @user.update(no_empty_params)
-      redirect_to profile_path, notice: "Your Data Has Been Updated"
+      if @user.update(no_empty_params)
+        redirect_to profile_path, notice: "Your Data Has Been Updated"
+      else
+        redirect_to profile_edit_path, notice: "That Email Is Already in Use"
+      end
     elsif !no_empty_params[:password]
       redirect_to profile_edit_path, notice: "Please Enter Password Before Making Changes"
     else
