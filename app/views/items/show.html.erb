@@ -1,9 +1,9 @@
-<%= @item.name %>
-<%= @item.description %>
-
-  <img src=<%= @item.image %>>
-
-<%= @item.user.name %>
-<%= @item.inventory_count %>
-<%= @item.price %>
+<img src=<%= @item.image %>>
+<h2><%= @item.name %></h2>
+<ul>
+  <li><strong>Description: </strong><%= @item.description %></li>
+  <li><strong>Merchant Name: </strong><%= @item.user.name %></li>
+  <li><strong>In Stock: </strong><%= @item.inventory_count %></li>
+  <li><strong>Price: $</strong><%= @item.price %></li>
+</ul>
 <%= link_to "Add to Cart", carts_path %>

@@ -1,15 +1,52 @@
 require "rails_helper"
 
 describe "when user visits an order index page" do
-  it "displays every order ever made" do
-    order = create(:order)
-    visit orders_path
+  before(:each) do
+    @user = create(:user)
+    @order = @user.orders.create(status: "pending")
+    @order_2 = @user.orders.create(status: "complete")
+    @order_3 = @user.orders.create(status: "canceled")
 
-    expect(page).to have_content(order.id)
-    expect(page).to have_content(order.created_at)
-    expect(page).to have_content(order.updated_at)
-    expect(page).to have_content(order.status)
-    #need to add additional tests here 
+    @item, @item_2 = create_list(:item, 2)
+    order_item = @order.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
+    order_item_2 = @order.order_items.create(item: @item_2, item_price: 2.00, item_quantity: 1)
+
+    visit root_path
+    click_link "Log In"
+
+    fill_in :name, with: @user.name
+    fill_in :password, with: @user.password
+
+    click_button "Log In"
+    end
+  it "displays every order registered user has ever made" do
+
+    visit profile_orders_path
+
+    expect(page).to have_link(@order.id)
+    expect(page).to have_content(@order.created_at)
+    expect(page).to have_content(@order.updated_at)
+    expect(page).to have_content(@order.status)
+    expect(page).to have_content(@order_2.id)
+    expect(page).to have_content(@order_2.created_at)
+    expect(page).to have_content(@order_2.updated_at)
+    expect(page).to have_content(@order_2.status)
+  end
+  it "they can click on order id and redirect to the order show page" do
+
+    visit profile_orders_path
+    click_link "#{@order.id}"
+    expect(current_path).to eq(order_path(@order))
+  end
+  it "they see total quantity of items in the order" do
+    visit profile_orders_path
+
+    expect(page).to have_content("Number of Items: 4")
+  end
+  it "they see grand total price of order" do
+    visit profile_orders_path
+    save_and_open_page
+    expect(page).to have_content("Grand Total: $14.00")
 
   end
 end

@@ -1,0 +1,14 @@
+<h2>All Orders</h2>
+
+<div class='orders'>
+<% @orders.each do |order| %>
+  <div class="each_order" id="order#{item.id}">
+    <br><br><%= link_to order.id, order_path(order) %>
+    <br>Created at: <%= order.created_at %>
+    <br>Last updated: <%= order.updated_at %>
+    <br>Current Status: <%= order.status %>
+    <br>Number of Items: <%= order.item_count %>
+    <br>Grand Total: <%= number_to_currency(order.grand_total) %>
+    </div>
+<% end %>
+</div>
