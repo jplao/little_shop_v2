@@ -4,20 +4,28 @@
   <%= form_for @user do |f| %>
     <%= f.label :name %>:
     <%= f.text_field :name %>
+
     <br><%= f.label :street_address %>:
     <%= f.text_field :street_address %>
+
     <br><%= f.label :city %>:
     <%= f.text_field :city %>
+
     <br><%= f.label :state %>:
     <%= f.text_field :state %>
+
     <br><%= f.label :zip %>:
     <%= f.text_field :zip %>
+
     <br><%= f.label :email %>:
     <%= f.text_field :email %>
+
     <br><%= f.label :password %>:
     <%= f.password_field :password %>
+
     <br><%= f.label :password_confirmation %>:
     <%= f.password_field :password_confirmation %>
+
     <br><%= f.submit %>
   <% end %>
 </div>
