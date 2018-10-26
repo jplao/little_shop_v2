@@ -11,6 +11,11 @@ class OrdersController < ApplicationController
   end
 
   def show
-  end 
+  end
 
+  def destroy
+    order = Order.find(params[:id])
+    order.update(status: "cancelled")
+    redirect_to profile_orders_path
+  end
 end

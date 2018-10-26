@@ -5,7 +5,7 @@ describe "when user visits an order index page" do
     @user = create(:user)
     @order = @user.orders.create(status: "pending")
     @order_2 = @user.orders.create(status: "complete")
-    @order_3 = @user.orders.create(status: "canceled")
+    @order_3 = @user.orders.create(status: "cancelled")
 
     @item, @item_2 = create_list(:item, 2)
     order_item = @order.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
@@ -45,8 +45,29 @@ describe "when user visits an order index page" do
   end
   it "they see grand total price of order" do
     visit profile_orders_path
-    save_and_open_page
-    expect(page).to have_content("Grand Total: $14.00")
 
+    expect(page).to have_content("Grand Total: $14.00")
+  end
+  it "they see an option to cancel a pending order" do
+    visit profile_orders_path
+
+    within("#order#{@order.id}") do
+      expect(page).to have_link("Cancel Order")
+    end
+    within("#order#{@order_2.id}") do
+      expect(page).not_to have_link("Cancel Order")
+    end
+  end
+  it "they can cancel an order" do
+    visit profile_orders_path
+
+    within("#order#{@order.id}") do
+      click_on "Cancel Order"
+    end
+
+    expect(current_path).to eq(profile_orders_path)
+    within("#order#{@order.id}") do
+      expect(page).to have_content("cancelled")
+    end
   end
 end
