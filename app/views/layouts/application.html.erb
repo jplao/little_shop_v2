@@ -17,7 +17,7 @@
         <li><%= link_to 'All Merchants', merchants_path, class: 'all-merchants-link'%></li>
         <li><%= link_to 'Shopping Cart', cart_path, class: 'shopping-cart-link'%></li>
         <% if current_user %>
-          <li><%= link_to 'Log Out', logout_path, class: 'logout-link', method: :delete, data: {confirm: "Do you really want to delete this book?"}%></li>
+          <li><%= link_to 'Log Out', logout_path, class: 'logout-link', method: :delete, data: {confirm: "Do you really want to log out?"}%></li>
         <% else %>
           <li><%= link_to 'Log In', login_path, class: 'login-link'%></li>
           <li><%= link_to 'Register', register_path, class: 'register-link'%></li>
