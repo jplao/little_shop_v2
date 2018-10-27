@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
 
   def index
-    if params[:id]
-      @orders = Order.where(user_id: params[:id])
+    if current_admin?
+      @orders = Order.all
     elsif current_user
       @orders = Order.where(user_id: session[:user_id])
     else
@@ -16,6 +16,11 @@ class OrdersController < ApplicationController
   def destroy
     order = Order.find(params[:id])
     order.update(status: "cancelled")
-    redirect_to profile_orders_path
+    OrderItem.where(order: order).update_all(active: false)
+    if current_admin?
+      redirect_to orders_path
+    else
+      redirect_to profile_orders_path
+    end
   end
 end
