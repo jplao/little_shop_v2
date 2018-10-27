@@ -58,7 +58,7 @@ describe "when user visits an order index page" do
       expect(page).not_to have_link("Cancel Order")
     end
   end
-  it "they can cancel an order" do
+  it "they can cancel an order as a registered user" do
     visit profile_orders_path
 
     within("#order#{@order.id}") do
@@ -69,5 +69,33 @@ describe "when user visits an order index page" do
     within("#order#{@order.id}") do
       expect(page).to have_content("cancelled")
     end
+  end
+
+  it "they can cancel an order as an admin" do
+    @admin = create(:user, role: 2)
+    @user_5 = create(:user)
+    @order_5 = @user_5.orders.create(status: "pending")
+    @item_5 = create(:item)
+    order_item_5 = @order_5.order_items.create(item: @item_5, item_price: 6.00, item_quantity: 22)
+
+
+    visit root_path
+    click_link "Log Out"
+    click_link "Log In"
+
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_button "Log In"
+
+    click_link "All Orders"
+
+    expect(current_path).to eq(orders_path)
+
+    expect(page).to have_content(@user.orders.first.id)
+    expect(page).to have_content(@user_5.orders.first.id)
+    #
+    # within("#order#{@order.id}") do
+    #   click_on "Cancel Order"
+    # end
   end
 end
