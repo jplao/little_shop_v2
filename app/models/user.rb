@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :orders
 
 #  enum role: %w(default admin)
+
+  def merchant_orders
+    Order.joins(:items).where('items.user_id = ?', self.id)
+  end
 end

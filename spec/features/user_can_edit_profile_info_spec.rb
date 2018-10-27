@@ -4,9 +4,8 @@ describe 'when a user visits profile edit page' do
     @user = create(:user)
 
     visit root_path
-    click_link "Log In"
-
-    fill_in :name, with: @user.name
+    click_on "Log In"
+    fill_in :email, with: @user.email
     fill_in :password, with: @user.password
 
     click_button "Log In"

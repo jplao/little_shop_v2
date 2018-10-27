@@ -35,7 +35,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    if session[:user]
+      session[:user][:email] = nil
+      @user = User.new(session[:user])
+    else
+      @user = User.new
+    end
   end
 
   def create
@@ -43,6 +48,10 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       redirect_to profile_path, notice: "You have successfully registered and have been logged in"
+    elsif User.find_by(email: user_params[:email])
+      session[:user] = @user
+      flash[:notice] = "That email is already in use. Try again"
+      redirect_to register_path
     else
       redirect_to register_path, notice: "Some fields were missing or incorrectly entered. Please try again."
     end
