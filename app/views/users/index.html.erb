@@ -4,14 +4,17 @@
 <% @users.each do |user| %>
   <div class='each_user' id="user<%=user.id%>">
     <br><br><%= link_to user.name, user_path(user) %>
-    <input type="button" value="Disable" onclick="return change(this);" />
-    <script type="text/javascript">
-    function change( el )
-        {if ( el.value === "Disable" )
-            el.value = "Enable";
-        else
-            el.value = "Disable";}
-    </script>
-  </div>
+     <% if user.active == true %>
+      <%= form_for user do |f| %>
+        <%= f.hidden_field :active, :value => false %>
+        <%= f.submit "Disable", class: "btn btn-default"%>
+      <% end %>
+    <% else %>
+      <%= form_for user do |f| %>
+        <%= f.hidden_field :active, :value => true %>
+        <%= f.submit "Enable", class: "btn btn-default"%>
+        <% end %>
+    <% end %>
+    </div>
 <% end %>
 </div>

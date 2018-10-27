@@ -19,12 +19,13 @@ describe 'when any user visits the merchant index page' do
 
   it 'as a admin can disable merchants' do
     merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:user, 4, role:1)
+    merchant_5 = create(:user, role:1, active:false)
 
     visit merchants_path
 
     within("#user#{merchant_1.id}") do
       expect(page).to have_button('Disable')
-
+      
       click_on 'Disable'
 
       expect(page).to have_button("Enable")
