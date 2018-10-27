@@ -17,18 +17,33 @@ describe 'when any user visits the merchant index page' do
     expect(page).not_to have_content(user_1.name)
   end
 
-  it 'as a admin can disable merchants' do
-    merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:user, 4, role:1)
-    merchant_5 = create(:user, role:1, active:false)
+  it 'shows enabled and disabled merchants' do
+    merchant_1 = create(:user, role:1)
+    merchant_2 = create(:user, role:1, active:false)
 
     visit merchants_path
 
     within("#user#{merchant_1.id}") do
       expect(page).to have_button('Disable')
-      save_and_open_page
-      
-      click_on 'Disable'
+    end
 
+    within("#user#{merchant_2.id}") do
+      expect(page).to have_button('Enable')
+    end
+  end
+
+
+  it 'as a admin can disable merchants' do
+    merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:user, 4, role:1)
+
+    visit merchants_path
+
+    within("#user#{merchant_1.id}") do
+      expect(page).to have_button('Disable')
+      click_on 'Disable'
+    end
+
+    within("#user#{merchant_1.id}") do
       expect(page).to have_button("Enable")
     end
   end
