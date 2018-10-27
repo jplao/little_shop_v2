@@ -71,13 +71,13 @@ describe "when user visits an order index page" do
     end
   end
 
-  it "they can cancel an order as an admin" do
+  it "an admin can see all user's orders and cancel them if pending" do
     @admin = create(:user, role: 2)
     @user_5 = create(:user)
     @order_5 = @user_5.orders.create(status: "pending")
-    @item_5 = create(:item)
+    @item_5, @item_6 = create_list(:item, 2)
     order_item_5 = @order_5.order_items.create(item: @item_5, item_price: 6.00, item_quantity: 22)
-
+    @order_5.order_items.create(item: @item_6, item_price: 3.00, item_quantity: 13)
 
     visit root_path
     click_link "Log Out"
@@ -93,9 +93,14 @@ describe "when user visits an order index page" do
 
     expect(page).to have_content(@user.orders.first.id)
     expect(page).to have_content(@user_5.orders.first.id)
-    #
-    # within("#order#{@order.id}") do
-    #   click_on "Cancel Order"
-    # end
+
+    within("#order#{@order_5.id}") do
+      click_on "Cancel Order"
+    end
+    save_and_open_page
+    expect(current_path).to eq(orders_path)
+    within("#order#{@order_5.id}") do
+      expect(page).to have_content("cancelled")
+    end
   end
 end
