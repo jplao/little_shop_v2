@@ -31,33 +31,45 @@ describe "when user visits an order index page" do
     expect(page).to have_content(@order_2.created_at)
     expect(page).to have_content(@order_2.updated_at)
     expect(page).to have_content(@order_2.status)
+    click_link 'Log Out'
   end
-  it "they can click on order id and redirect to the order show page" do
 
+  it "they can click on order id and redirect to the order show page" do
     visit profile_orders_path
     click_link "#{@order.id}"
+
     expect(current_path).to eq(order_path(@order))
+    click_link 'Log Out'
   end
+
   it "they see total quantity of items in the order" do
     visit profile_orders_path
 
     expect(page).to have_content("Number of Items: 4")
+    click_link 'Log Out'
   end
+
   it "they see grand total price of order" do
     visit profile_orders_path
 
     expect(page).to have_content("Grand Total: $14.00")
+    click_link 'Log Out'
   end
+
   it "they see an option to cancel a pending order" do
     visit profile_orders_path
 
     within("#order#{@order.id}") do
       expect(page).to have_link("Cancel Order")
     end
+
     within("#order#{@order_2.id}") do
       expect(page).not_to have_link("Cancel Order")
     end
+
+    click_link 'Log Out'
   end
+
   it "they can cancel an order as a registered user" do
     visit profile_orders_path
 
@@ -69,6 +81,7 @@ describe "when user visits an order index page" do
     within("#order#{@order.id}") do
       expect(page).to have_content("cancelled")
     end
+    click_link 'Log Out'
   end
 
   it "an admin can see all user's orders and cancel them if pending" do
@@ -97,9 +110,11 @@ describe "when user visits an order index page" do
     within("#order#{@order_5.id}") do
       click_on "Cancel Order"
     end
+
     expect(current_path).to eq(orders_path)
     within("#order#{@order_5.id}") do
       expect(page).to have_content("cancelled")
     end
+    click_link 'Log Out'
   end
 end

@@ -33,6 +33,7 @@ describe 'when a user visits profile edit page' do
     expect(page).to have_content(city)
     expect(page).to have_content(email)
     expect(page).to have_content(@user.zip)
+    click_link 'Log Out'
   end
 
   it 'user cant make changes to their profile without password' do
@@ -53,6 +54,7 @@ describe 'when a user visits profile edit page' do
 
     expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("Please Enter Password Before Making Changes")
+    click_link 'Log Out'
   end
 
   it 'user cant make changes to their profile without correct password' do
@@ -74,6 +76,7 @@ describe 'when a user visits profile edit page' do
 
     expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("Please Enter CORRECT Password Before Making Changes")
+    click_link 'Log Out'
   end
 
   it 'user cant update their email to one that one that already exists' do
@@ -89,5 +92,6 @@ describe 'when a user visits profile edit page' do
     expect(current_path).to eq(profile_edit_path)
     expect(page).to have_content("That Email Is Already in Use")
     expect(@user.email).to eq(original_email)
+    click_link 'Log Out'
   end
 end

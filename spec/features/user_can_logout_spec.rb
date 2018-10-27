@@ -23,6 +23,5 @@ describe 'log out process' do
 
     expect(current_path).to eq(login_path)
     expect(page).to have_content("You are not logged in")
-
   end
 end
