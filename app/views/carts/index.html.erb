@@ -1,3 +1,11 @@
-<div id=  >
+<% @items.each do |item, quantity| %>
+  <div id="item-<%= item.id %>"  >
+    <%= item.name %>
+    <%= item.user.name %>
+    <img src=<%= item.image %> >
+    <%= number_to_currency(item.price) %>
+    Quantity: <%= quantity %>
+  </div>
 
-</div>
+  <%= button_to "Empty Cart", {:controller => :carts, :action => :destroy}, :method => delete %>
+<% end %>
