@@ -14,12 +14,27 @@ describe 'Navigation' do
       expect(page).to have_link('Log In')
       expect(page).to have_link('Register')
       expect(page).not_to have_link('My Dashboard')
+      expect(page).not_to have_link("My Profile")
+      expect(page).not_to have_link("My Orders")
     end
 
   end
 
   context 'as a registered user' do
+    it 'can see profile links' do
+      @user = create(:user, role: 0)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
 
+      expect(page).to have_link("My Profile")
+      expect(page).to have_link("My Orders")
+      expect(page).to have_link("Log Out")
+      expect(page).not_to have_link("My Dashboard")
+      click_link "Log Out"
+    end
   end
 
   context 'as a merchant' do
@@ -32,6 +47,7 @@ describe 'Navigation' do
       click_button "Log In"
 
       expect(page).to have_link('My Dashboard')
+      click_link "Log Out"
     end
   end
 

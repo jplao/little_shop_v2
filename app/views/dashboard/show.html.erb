@@ -1,3 +1,5 @@
-<% if @merchant.merchant_orders != [] %>
-  <%= link_to "Orders", dashboard_orders_path %>
-<% end %>
+<div class="dashboard_orders">
+  <% if @merchant.merchant_orders != [] %>
+    <%= link_to "Orders", dashboard_orders_path %>
+  <% end %>
+</div>
