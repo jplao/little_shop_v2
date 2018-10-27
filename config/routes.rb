@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   get '/profile/edit/', to: 'users#edit'
   get '/profile/orders', to: 'orders#index'
 
+  namespace :dashboard do
+    resources :items, only: [:index, :new]
+    resources :orders, only: [:index]
+  end
+
   get '/dashboard', to: 'dashboard#show'
-  get '/dashboard/items', to: 'items#index'
-  get '/dashboard/items/new', to: 'items#new'
 
   resources :orders, only: [:index, :show, :destroy]
 

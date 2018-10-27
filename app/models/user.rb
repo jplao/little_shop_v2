@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_secure_password
   has_many :items
   has_many :orders
+
+  def merchant_orders
+    Order.joins(:items).where('items.user_id = ?', self.id)
+  end
 end
