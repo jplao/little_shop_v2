@@ -18,6 +18,15 @@
               role: 1)
 end
 
+User.create(name: "merchant",
+            street_address: "merchant",
+            city: "merchant",
+            state: "merchant",
+            zip: "merchant",
+            email: "merchant",
+            password: "merchant",
+            role: 1))
+
 # Merchant Items
 User.all.each do |user|
   number_of_items = rand(0..15)
@@ -51,6 +60,15 @@ User.create(name: Faker::FunnyName.two_word_name,
             email: Faker::Internet.unique.email,
             password: Faker::Internet.password,
             role: 2)
+
+User.create(name: "admin",
+            street_address: "admin",
+            city: "admin",
+            state: "admin",
+            zip: "admin",
+            email: "admin",
+            password: "admin",
+            role: 2))
 
 # User Orders
 User.all.each do |user|
