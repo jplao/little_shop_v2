@@ -5,7 +5,14 @@
     <img src=<%= item.image %> >
     <%= number_to_currency(item.price) %>
     Quantity: <%= quantity %>
+    Subtotal: <%= number_to_currency(item.price * quantity) %>
   </div>
-
-  <%= button_to "Empty Cart", {:controller => :carts, :action => :destroy}, :method => delete %>
 <% end %>
+
+<% total = 0 %>
+<% @items.each do |item, quantity| %>
+<% total += (item.price * quantity) %>
+<% end %>
+Total: <%= number_to_currency(total) %>
+
+<button type="button">Empty Cart</button>

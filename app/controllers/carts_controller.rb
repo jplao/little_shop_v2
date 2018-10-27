@@ -9,10 +9,14 @@ class CartsController < ApplicationController
   end
 
   def index
-    @items = session[:cart].inject(Hash.new(0)) do |hash, (item_id, count)|
-      item = Item.find(item_id)
-      hash[item] = count
-      hash
+    if session[:cart]
+      @items = session[:cart].inject(Hash.new(0)) do |hash, (item_id, count)|
+        item = Item.find(item_id)
+        hash[item] = count
+        hash
+      end
+    else
+      @items = []
     end
   end
 end

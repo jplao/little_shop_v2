@@ -32,6 +32,13 @@ describe 'adding items to cart' do
     end
 
     it 'shows items that have been added to cart' do
+      visit cart_path
+      expect(page).to_not have_content(@item_1.name)
+      expect(page).to_not have_content(@item_1.user.name)
+      expect(page).to_not have_content("$#{@item_1.price.round(2)}")
+      expect(page).to_not have_content(@item_2.name)
+      expect(page).to_not have_content(@item_2.user.name)
+      expect(page).to_not have_content("$#{@item_2.price.round(2)}")
 
       visit item_path(@item_1)
       click_on('Add to Cart')
@@ -55,20 +62,28 @@ describe 'adding items to cart' do
       end
     end
 
-    it 'shows items that have been added to cart' do
+    it 'shows a link to empty cart' do
+      visit cart_path
+      expect(page).to have_button("Empty Cart")
+
+      visit item_path(@item_1)
+      click_on('Add to Cart')
+
+      visit cart_path
+      expect(page).to have_button("Empty Cart")
+    end
+    it 'shows a the subtotal' do
 
       visit item_path(@item_1)
       click_on('Add to Cart')
       visit item_path(@item_2)
       click_on('Add to Cart')
+      click_on('Add to Cart')
 
       visit cart_path
-
-      expect(page).to have_button("Empty Cart")
-      click_on "Empty Cart"
-      visit cart_path
-      expect(page).to_not have_content(@item_1.name)
-      expect(page).to_not have_content(@item_2.name)
+      expect(page).to have_content("Subtotal: $#{@item_1.price}")
+      expect(page).to have_content("Subtotal: $#{@item_2.price * 2}")
+      expect(page).to have_content("Total: $#{(@item_1.price) + (@item_2.price * 2)}")
     end
   end
 end
