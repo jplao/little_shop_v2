@@ -18,6 +18,11 @@ header {
   position: relative;
 }
 
+.merchants{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .flash{
   color: red;
   font-size: 25px;

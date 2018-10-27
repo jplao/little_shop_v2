@@ -1,0 +1,20 @@
+<h2>All Merchants</h2>
+
+<div class='merchants'>
+<% @users.each do |user| %>
+  <div class='each_item' id="user<%=user.id%>">
+    <%= link_to user.name, user_path(user) %>
+     <% if user.active == true %>
+      <%= form_for user, url: admin_user_path(user), method: :patch do |f| %>
+        <%= f.hidden_field :active, :value => false %>
+        <%= f.submit "Disable"%>
+      <% end %>
+    <% else %>
+      <%= form_for user, url: admin_user_path(user), method: :patch do |f| %>
+        <%= f.hidden_field :active, :value => true %>
+        <%= f.submit "Enable"%>
+        <% end %>
+    <% end %>
+    </div>
+<% end %>
+</div>
