@@ -6,4 +6,4 @@
   <li><strong>In Stock: </strong><%= @item.inventory_count %></li>
   <li><strong>Price: $</strong><%= @item.price %></li>
 </ul>
-<%= link_to "Add to Cart", carts_path %>
+<%= button_to "Add to Cart", carts_path(item_id: @item.id) %>

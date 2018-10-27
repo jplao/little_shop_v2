@@ -14,7 +14,7 @@ describe 'User can navigate to item show page' do
     expect(page).to have_content(item_1.user.name)
     expect(page).to have_content(item_1.inventory_count)
     expect(page).to have_content(item_1.price)
-    expect(page).to have_link("Add to Cart")
+    expect(page).to have_button("Add to Cart")
 
     visit items_path
 
@@ -25,7 +25,7 @@ describe 'User can navigate to item show page' do
     expect(page).to have_content(item_2.user.name)
     expect(page).to have_content(item_2.inventory_count)
     expect(page).to have_content(item_2.price)
-    expect(page).to have_link("Add to Cart")
+    expect(page).to have_button("Add to Cart")
 
     visit items_path
     click_link("image-#{item_1.id}")
@@ -35,6 +35,6 @@ describe 'User can navigate to item show page' do
     expect(page).to have_content(item_1.user.name)
     expect(page).to have_content(item_1.inventory_count)
     expect(page).to have_content(item_1.price)
-    expect(page).to have_link("Add to Cart")
+    expect(page).to have_button("Add to Cart")
   end
 end
