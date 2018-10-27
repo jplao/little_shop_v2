@@ -48,6 +48,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.where(role: 1)
+  end
+
   private
 
   def user_params

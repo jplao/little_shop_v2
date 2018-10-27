@@ -1,0 +1,17 @@
+<h2>All Merchants</h2>
+
+<div class='merchants'>
+<% @users.each do |user| %>
+  <div class='each_user' id="user<%=user.id%>">
+    <br><br><%= link_to user.name, user_path(user) %>
+    <input type="button" value="Disable" onclick="return change(this);" />
+    <script type="text/javascript">
+    function change( el )
+        {if ( el.value === "Disable" )
+            el.value = "Enable";
+        else
+            el.value = "Disable";}
+    </script>
+  </div>
+<% end %>
+</div>

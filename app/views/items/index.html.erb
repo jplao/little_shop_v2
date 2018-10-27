@@ -2,7 +2,7 @@
 
 <div class='items'>
 <% @items.each do |item| %>
-  <div class='each_item' id="item#{item.id}">
+  <div class='each_item' id="item<%=item.id%>">
     <%= link_to image_tag(item.image, alt: "image-#{item.id}"), item_path(item) %>
     <br><br><%= link_to item.name, item_path(item) %>
     <br><br>Merchant: <%= item.user.name %>
