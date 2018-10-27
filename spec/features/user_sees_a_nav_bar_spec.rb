@@ -16,8 +16,9 @@ describe 'Navigation' do
       expect(page).not_to have_link('My Dashboard')
       expect(page).not_to have_link("My Profile")
       expect(page).not_to have_link("My Orders")
+      expect(page).not_to have_link('Admin Dashboard')
+      expect(page).not_to have_link('All Users')
     end
-
   end
 
   context 'as a registered user' do
@@ -33,6 +34,8 @@ describe 'Navigation' do
       expect(page).to have_link("My Orders")
       expect(page).to have_link("Log Out")
       expect(page).not_to have_link("My Dashboard")
+      expect(page).not_to have_link('Admin Dashboard')
+      expect(page).not_to have_link('All Users')
       click_link "Log Out"
     end
   end
@@ -47,12 +50,25 @@ describe 'Navigation' do
       click_button "Log In"
 
       expect(page).to have_link('My Dashboard')
+      expect(page).not_to have_link('Admin Dashboard')
+      expect(page).not_to have_link('All Users')
+
       click_link "Log Out"
     end
   end
 
   context 'as an admin' do
+    it 'can see all links plus admin links' do
+      @admin = create(:user, role: 2)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+      click_button "Log In"
 
+      expect(page).to have_link('My Dashboard')
+      expect(page).to have_link('All Users')
+      click_link "Log Out"
+    end
   end
-
 end

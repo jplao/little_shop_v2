@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:create]
   get '/cart', to: 'carts#index'
 
-  resources :users, only: [:show, :update, :edit]
+  resources :users, only: [:show, :update, :edit, :index]
 
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get '/merchants/:id', to: 'users#show'
 
   namespace :admin do
-    resources :users, only: [:index, :update, :destroy]
+    resources :users, only: [:update, :destroy]
     resources :orders, only: [:update, :edit]
   end
 end
