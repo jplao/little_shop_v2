@@ -25,7 +25,7 @@ User.create(name: "merchant",
             zip: "merchant",
             email: "merchant",
             password: "merchant",
-            role: 1))
+            role: 1)
 
 # Merchant Items
 User.all.each do |user|
@@ -68,7 +68,7 @@ User.create(name: "admin",
             zip: "admin",
             email: "admin",
             password: "admin",
-            role: 2))
+            role: 2)
 
 # User Orders
 User.all.each do |user|
