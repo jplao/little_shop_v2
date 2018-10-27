@@ -37,6 +37,23 @@ describe 'Merchant dashboard' do
     expect(page).to have_content(@order_2.created_at)
     expect(page).to have_content(@order_2.updated_at)
     expect(page).to have_content(@order_2.status)
+    click_link 'Log Out'
+  end
+
+  it 'on orders page does not show orders of another merchant' do
+    @merchant_2 = create(:user, role: 1)
+    @item_4 = create(:item)
+    @merchant_2.items = [@item_4]
+    @order_4 = create(:order)
+    @order_4.order_items.create(item: @item_4, item_price: 7.99, item_quantity: 4)
+
+    visit dashboard_path
+    click_link "Orders"
+    expect(current_path).to eq(dashboard_orders_path)
+
+    expect(current_path).to eq(dashboard_orders_path)
+    expect(page).not_to have_link(@order_4.id)
+    click_link 'Log Out'
   end
 
   it 'doesnt show a link to orders when a merchant has no orders' do
@@ -50,6 +67,7 @@ describe 'Merchant dashboard' do
 
     visit dashboard_path
     expect(page).to_not have_link("Orders")
+    click_link 'Log Out'
   end
 
 end

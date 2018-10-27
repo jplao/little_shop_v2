@@ -32,7 +32,6 @@ describe 'when any user visits the merchant index page' do
     end
   end
 
-
   it 'as a admin can disable merchants' do
     merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:user, 4, role:1)
 
