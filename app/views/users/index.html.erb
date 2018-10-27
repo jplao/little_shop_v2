@@ -2,8 +2,8 @@
 
 <div class='merchants'>
 <% @users.each do |user| %>
-  <div class='each_user' id="user<%=user.id%>">
-    <br><br><%= link_to user.name, user_path(user) %>
+  <div class='each_item' id="user<%=user.id%>">
+    <%= link_to user.name, user_path(user) %>
      <% if user.active == true %>
       <%= form_for user do |f| %>
         <%= f.hidden_field :active, :value => false %>

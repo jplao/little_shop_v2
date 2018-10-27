@@ -25,6 +25,7 @@ describe 'when any user visits the merchant index page' do
 
     within("#user#{merchant_1.id}") do
       expect(page).to have_button('Disable')
+      save_and_open_page
       
       click_on 'Disable'
 
