@@ -17,6 +17,7 @@ describe 'Merchant dashboard' do
     click_button "Log In"
 
     visit dashboard_path
+
     expect(page).to have_link("Orders")
   end
 

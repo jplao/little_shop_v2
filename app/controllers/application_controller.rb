@@ -23,8 +23,7 @@ class ApplicationController < ActionController::Base
     @cart_count = cart_count
   end
 
-
-#  def current_admin?
-#    current_user && current_user.admin?
-#  end
+  def current_admin?
+    current_user && current_user.admin?
+  end
 end
