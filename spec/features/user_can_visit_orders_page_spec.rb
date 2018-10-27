@@ -97,7 +97,6 @@ describe "when user visits an order index page" do
     within("#order#{@order_5.id}") do
       click_on "Cancel Order"
     end
-    save_and_open_page
     expect(current_path).to eq(orders_path)
     within("#order#{@order_5.id}") do
       expect(page).to have_content("cancelled")
