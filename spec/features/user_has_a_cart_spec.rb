@@ -152,13 +152,13 @@ describe 'cart functionality' do
   context 'as a visitor' do
     it "asks me to log in or register to finish order" do
       visit cart_path
-      expect(page). to have_content('Please Register or Log In to Finish Checkout')
+      expect(page).to have_content('Please Log In or Register to Finish Checkout')
     end
 
     it "goes to registration when you click register" do
       visit cart_path
       within ('#checkout-notice') do
-        click_on 'Register'
+        click_link 'Register'
         expect(current_path).to eq(register_path)
       end
     end
@@ -166,7 +166,7 @@ describe 'cart functionality' do
     it "goes to log in when you click log in" do
       visit cart_path
       within ('#checkout-notice') do
-        click_on 'Log In'
+        click_link 'Log In'
         expect(current_path).to eq(login_path)
       end
     end

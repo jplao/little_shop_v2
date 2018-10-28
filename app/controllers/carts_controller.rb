@@ -9,6 +9,10 @@ class CartsController < ApplicationController
   end
 
   def index
+    if current_user
+      @current_user = current_user
+    end
+
     if session[:cart]
       @items = session[:cart].inject(Hash.new(0)) do |hash, (item_id, count)|
         item = Item.find(item_id)
