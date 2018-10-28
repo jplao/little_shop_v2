@@ -93,4 +93,12 @@ describe 'Merchant dashboard' do
 
     expect(current_path).to eq(root_path)
   end
+
+  it 'shows a link to items sold when a merchant' do
+    visit dashboard_path
+    within(".dashboard_items") do
+      expect(page).to have_link("My Items")
+    end
+    click_link 'Log Out'
+  end
 end
