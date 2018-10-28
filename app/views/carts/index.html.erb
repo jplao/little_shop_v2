@@ -7,7 +7,12 @@
     <%= item.user.name %>
     <img src=<%= item.image %> >
     <%= number_to_currency(item.price) %>
-    Quantity: <%= quantity %>
+    <span>
+      Quantity: <%= quantity %>
+      <%= button_to "➕", cart_path(item_id: item.id, thing_to_do: :more), method: :put, class: "trash-button" %>
+      <%= button_to "➖", cart_path(item_id: item.id, thing_to_do: :less), method: :put, class: "trash-button" %>
+
+    </span>
     Subtotal: <%= number_to_currency(item.price * quantity) %>
   </div>
 <% end %>

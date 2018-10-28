@@ -21,8 +21,15 @@ class CartsController < ApplicationController
   end
 
   def update
+    item_id = params[:item_id].to_s
     if params[:thing_to_do] == "remove"
-      session[:cart].delete(params[:item_id].to_s)
+      session[:cart].delete(item_id)
+    elsif params[:thing_to_do] == "more" && session[:cart][item_id] < Item.find(item_id).inventory_count
+      session[:cart][item_id] += 1
+    elsif params[:thing_to_do] == "less" && session[:cart][item_id] > 1
+      session[:cart][item_id] -= 1
+    elsif params[:thing_to_do] == "less" && session[:cart][item_id] == 1
+      session[:cart].delete(item_id)
     end
     redirect_to cart_path
   end

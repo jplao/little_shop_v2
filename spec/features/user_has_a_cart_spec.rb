@@ -5,7 +5,8 @@ describe 'cart functionality' do
 
     before :each do
 
-      @item_1, @item_2 = create_list(:item, 2)
+      @item_1 = create(:item, inventory_count: 3)
+      @item_2 = create(:item, inventory_count: 3)
       @merchant_1, @merchant_2 = create_list(:user, 2)
 
       @merchant_1.items = [@item_1]
@@ -120,28 +121,30 @@ describe 'cart functionality' do
 
     it 'individual items can be incremented and decremented' do
 
+
       visit item_path(@item_1)
       click_on('Add to Cart')
-      visit item_path(@item_2)
-      click_on('Add to Cart')
-      click_on('Add to Cart')
+
 
       click_on('Cart (')
 
-      within "#item-#{@item_1.id}" do
-        click_button('+')
-        expect(page).to have_content("Quantity: 2")
-        click_button('+')
-        expect(page).to have_content("Quantity: 3")
-      end
+      click_on('➕')
+      expect(page).to have_content("Quantity: 2")
 
-      within "#item-#{@item_2.id}" do
-        click_button('-')
-        expect(page).to have_content("Quantity: 1")
-        click_button('-')
-      end
+      click_on('➕')
+      expect(page).to have_content("Quantity: 3")
 
-      expect(page).to_not have_content(@item_2.name)
+      click_on('➕')
+      expect(page).to have_content("Quantity: 3")
+
+      click_button('➖')
+      expect(page).to have_content("Quantity: 2")
+
+      click_button('➖')
+      expect(page).to have_content("Quantity: 1")
+
+      click_button('➖')
+      expect(page).to_not have_content(@item_1.name)
 
     end
   end
