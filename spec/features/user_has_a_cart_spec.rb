@@ -117,5 +117,32 @@ describe 'cart functionality' do
       expect(page).to have_content(@item_2.name)
 
     end
+
+    it 'individual items can be incremented and decremented' do
+
+      visit item_path(@item_1)
+      click_on('Add to Cart')
+      visit item_path(@item_2)
+      click_on('Add to Cart')
+      click_on('Add to Cart')
+
+      click_on('Cart (')
+
+      within "#item-#{@item_1.id}" do
+        click_button('+')
+        expect(page).to have_content("Quantity: 2")
+        click_button('+')
+        expect(page).to have_content("Quantity: 3")
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_button('-')
+        expect(page).to have_content("Quantity: 1")
+        click_button('-')
+      end
+
+      expect(page).to_not have_content(@item_2.name)
+
+    end
   end
 end
