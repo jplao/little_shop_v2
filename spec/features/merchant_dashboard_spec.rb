@@ -80,4 +80,17 @@ describe 'Merchant dashboard' do
     click_link 'Log Out'
   end
 
+  it 'as a registered user cannot visit dashboard page' do
+    user = create(:user)
+    click_link 'Log Out'
+    visit root_path
+    click_link "Log In"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_button "Log In"
+
+    visit dashboard_path
+
+    expect(current_path).to eq(root_path)
+  end
 end
