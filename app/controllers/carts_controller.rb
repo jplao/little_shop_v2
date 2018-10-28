@@ -20,6 +20,13 @@ class CartsController < ApplicationController
     end
   end
 
+  def update
+    if params[:thing_to_do] == "remove"
+      session[:cart].delete(params[:item_id].to_s)
+    end
+    redirect_to cart_path
+  end
+
   def destroy
     session.delete(:cart)
     redirect_to cart_path

@@ -97,6 +97,24 @@ describe 'cart functionality' do
       expect(page).to_not have_content(@item_1.name)
       expect(page).to_not have_content(@item_2.name)
 
+    end
+
+    it 'individual item can be deleted from cart' do
+
+      visit item_path(@item_1)
+      click_on('Add to Cart')
+      visit item_path(@item_2)
+      click_on('Add to Cart')
+      click_on('Add to Cart')
+
+      click_on('Cart (')
+
+      within "#item-#{@item_1.id}" do
+        click_button('🗑')
+      end
+
+      expect(page).to_not have_content(@item_1.name)
+      expect(page).to have_content(@item_2.name)
 
     end
   end
