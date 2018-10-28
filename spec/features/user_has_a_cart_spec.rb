@@ -11,7 +11,7 @@ describe 'cart functionality' do
     @merchant_2.items = [@item_2]
   end
 
-  describe 'as a user' do
+  context 'as any type of user' do
 
     it 'adds an item to cart' do
       visit item_path(@item_1)
@@ -147,9 +147,11 @@ describe 'cart functionality' do
       expect(page).to_not have_content(@item_1.name)
 
     end
+
   end
 
   context 'as a visitor' do
+
     it "asks me to log in or register to finish order" do
       visit cart_path
       expect(page).to have_content('Please Log In or Register to Finish Checkout')
@@ -169,6 +171,25 @@ describe 'cart functionality' do
         click_link 'Log In'
         expect(current_path).to eq(login_path)
       end
+
     end
+  end
+
+  context 'as a registered user' do
+
+    before :each do
+      @user = create(:user)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
+    end
+
+    it "shows me a link to checkout" do
+      visit cart_path
+      expect(page).to have_button('Checkout')
+    end
+
   end
 end
