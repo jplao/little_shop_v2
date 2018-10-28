@@ -94,4 +94,30 @@ describe 'when a user visits profile edit page' do
     expect(@user.email).to eq(original_email)
     click_link 'Log Out'
   end
+  it 'admin can edit user profile data' do
+    admin = create(:user, role: 2, password: "admin", email: "admin")
+    click_link "Log Out"
+    visit root_path
+    click_link "Log In"
+
+    fill_in :email, with: "admin"
+    fill_in :password, with: "admin"
+    click_button "Log In"
+
+    visit user_path(@user)
+
+    click_link "Edit Profile"
+
+    fill_in :profile_name, with: "New Name"
+    fill_in :profile_city, with: "New City"
+    fill_in :profile_email, with: "New Email"
+    fill_in :profile_password, with: "#{@user.password}"
+    click_button "Edit User"
+
+    expect(current_path).to eq(user_path(@user))
+    expect(page).to have_content("New Name")
+    expect(page).to have_content("New Name")
+    expect(page).to have_content("New Email")
+    click_link 'Log Out'
+  end
 end
