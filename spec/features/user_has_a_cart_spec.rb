@@ -64,18 +64,6 @@ describe 'cart functionality' do
       end
     end
 
-    it 'shows a link to empty cart' do
-      visit cart_path
-      expect(page).to have_button("Empty Cart")
-
-      visit item_path(@item_1)
-      click_on('Add to Cart')
-
-      click_on('Cart (')
-
-      expect(page).to have_button("Empty Cart")
-    end
-
     it 'shows a the subtotal' do
 
       visit item_path(@item_1)

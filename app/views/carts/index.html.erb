@@ -11,8 +11,8 @@
 
 <% total = 0 %>
 <% @items.each do |item, quantity| %>
-<% total += (item.price * quantity) %>
+  <% total += (item.price * quantity) %>
 <% end %>
 Total: <%= number_to_currency(total) %>
 
-<button type="button">Empty Cart</button>
+<%= link_to 'Empty Cart', cart_path, class: 'empty-cart-link', method: :delete, data: {confirm: "Do you really want to remove all items from cart?"}%>
