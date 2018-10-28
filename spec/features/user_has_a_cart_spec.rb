@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe 'cart functionality' do
+  before :each do
+
+    @item_1 = create(:item, inventory_count: 3)
+    @item_2 = create(:item, inventory_count: 3)
+    @merchant_1, @merchant_2 = create_list(:user, 2)
+
+    @merchant_1.items = [@item_1]
+    @merchant_2.items = [@item_2]
+  end
+
   describe 'as a user' do
-
-    before :each do
-
-      @item_1 = create(:item, inventory_count: 3)
-      @item_2 = create(:item, inventory_count: 3)
-      @merchant_1, @merchant_2 = create_list(:user, 2)
-
-      @merchant_1.items = [@item_1]
-      @merchant_2.items = [@item_2]
-    end
 
     it 'adds an item to cart' do
       visit item_path(@item_1)
@@ -146,6 +146,29 @@ describe 'cart functionality' do
       click_button('➖')
       expect(page).to_not have_content(@item_1.name)
 
+    end
+  end
+
+  context 'as a visitor' do
+    it "asks me to log in or register to finish order" do
+      visit cart_path
+      expect(page). to have_content('Please Register or Log In to Finish Checkout')
+    end
+
+    it "goes to registration when you click register" do
+      visit cart_path
+      within ('#checkout-notice') do
+        click_on 'Register'
+        expect(current_path).to eq(register_path)
+      end
+    end
+
+    it "goes to log in when you click log in" do
+      visit cart_path
+      within ('#checkout-notice') do
+        click_on 'Log In'
+        expect(current_path).to eq(login_path)
+      end
     end
   end
 end
