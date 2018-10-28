@@ -58,7 +58,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.where(role: 1)
+    if params[:display] == "all"
+      @users = User.all
+      @header = "Users"
+    else
+      @users = User.where(role: 1)
+      @header = "Merchants"
+    end
   end
 
   private
