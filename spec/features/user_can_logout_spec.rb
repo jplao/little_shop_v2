@@ -17,11 +17,28 @@ describe 'log out process' do
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content("You have successfully logged out")
-    #expect(session[:cart].count).to eq(0) build once we have cart functionality
 
     visit profile_path
 
     expect(current_path).to eq(login_path)
     expect(page).to have_content("You are not logged in")
+  end
+
+  it 'should empty cart upon logging out' do
+
+    @item_1, @item_2 = create_list(:item, 2)
+
+    visit item_path(@item_1)
+    click_on('Add to Cart')
+    visit item_path(@item_2)
+    click_on('Add to Cart')
+    click_on('Add to Cart')
+
+    expect(page).to have_content('Cart (3)')
+
+    click_on('Log Out')
+
+    expect(page).to have_content('Cart (0)')
+
   end
 end
