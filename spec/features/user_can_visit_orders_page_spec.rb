@@ -84,7 +84,7 @@ describe "when user visits an order index page" do
     click_link 'Log Out'
   end
 
-  it "an admin can see all user's orders and cancel them if pending" do
+  it "an admin can see all users orders and cancel them if pending" do
     @admin = create(:user, role: 2)
     @user_5 = create(:user)
     @order_5 = @user_5.orders.create(status: "pending")
@@ -116,5 +116,34 @@ describe "when user visits an order index page" do
       expect(page).to have_content("cancelled")
     end
     click_link 'Log Out'
+  end
+
+  it "an admin can see an indvidual users orders" do
+    @admin = create(:user, role: 2)
+    @user_5 = create(:user)
+    @order_5 = @user_5.orders.create(status: "pending")
+    @item_5, @item_6 = create_list(:item, 2)
+    order_item_5 = @order_5.order_items.create(item: @item_5, item_price: 6.00, item_quantity: 22)
+    @order_5.order_items.create(item: @item_6, item_price: 3.00, item_quantity: 13)
+
+    visit root_path
+    click_link "Log Out"
+    click_link "Log In"
+
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_button "Log In"
+
+    visit user_path(@user)
+
+    within(".user_orders") do
+      click_link("My Orders")
+    end
+
+    expect(current_path).to eq(user_orders_path(@user))
+    expect(page).to have_content(@order.id)
+    expect(page).to have_content(@order_2.id)
+    expect(page).to have_content(@order_3.id)
+    expect(page).not_to have_content(@order_5.id)
   end
 end
