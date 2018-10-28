@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if params[:id]
+    if current_admin? && params[:id]
       @user = User.find(params[:id])
     else
       @user = current_user
@@ -22,7 +22,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     no_empty_params = user_params.reject { |k,v| v.empty? }
     if @user.authenticate(no_empty_params[:password])
-      if @user.update(no_empty_params)
+      if current_admin? && @user.update(no_empty_params)
+        redirect_to user_path(@user), notice: "User Data Has Been Updated"
+      elsif @user.update(no_empty_params)
         redirect_to profile_path, notice: "Your Data Has Been Updated"
       else
         redirect_to profile_edit_path, notice: "That Email Is Already in Use"

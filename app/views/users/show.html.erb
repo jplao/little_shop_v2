@@ -7,7 +7,11 @@
     <strong>State: </strong><%= @user.state %><br>
     <strong>Zip: </strong><%= @user.zip %><br>
     <strong>Email: </strong><%= @user.email %><br>
-    <%= link_to "Edit Profile", profile_edit_path %><br><br>
+    <% if current_admin? %>
+      <%= link_to "Edit Profile", edit_user_path(@user) %><br><br>
+    <% else %>
+      <%= link_to "Edit Profile", profile_edit_path %><br><br>
+    <% end %>
   </div>
 
   <div class="user-stats">
