@@ -1,0 +1,27 @@
+<div class="add_item">
+  <br><br><%= link_to "Add New Item", new_dashboard_item_path %>
+</div>
+
+<div class='items'>
+<% @items.each do |item| %>
+  <div class="each_item" id="item<%= item.id%>">
+    <%= image_tag(item.image, alt: "image-#{item.id}") %>
+    <br>Item Id: <%= item.id %>
+    <br>Item Name: <%= item.name %>
+    <br>Price: <%= item.price %>
+    <br>Inventory Count: <%= item.inventory_count %>
+    <%= link_to "Edit Item", edit_item_path(item) %>
+    <% if item.active == true %>
+      <%= form_for item, url: "/items/#{item.id}", method: :patch do |f| %>
+        <%= f.hidden_field :active, :value => false %>
+        <%= f.submit "Disable"%>
+      <% end %>
+    <% else %>
+      <%= form_for item, url: "/items/#{item.id}", method: :patch do |f| %>
+        <%= f.hidden_field :active, :value => true %>
+        <%= f.submit "Enable"%>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+</div>
