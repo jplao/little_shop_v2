@@ -26,6 +26,42 @@ describe 'user can visit the all users page' do
         expect(page).to have_content("All Users")
         expect(page).not_to have_content("All Merchants")
       end
+      click_link 'Log Out'
     end
+
+    it 'can see all users show page' do
+      @admin = create(:user, role: 2)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+      click_button "Log In"
+
+      click_link "All Users"
+      click_link "#{@user_1.name}"
+
+      expect(page).to have_content(@user_1.name)
+      expect(page).to have_content(@user_1.street_address)
+      expect(page).to have_content(@user_1.city)
+      expect(page).to have_content(@user_1.state)
+      expect(page).to have_content(@user_1.zip)
+      expect(page).to have_content(@user_1.email)
+      expect(page).to have_link("Edit Profile")
+      click_link 'Log Out'
+    end
+  end
+
+  it 'as a regular user cannot visit other users porfile pages' do
+    user = create(:user)
+    user_2 = create(:user)
+    visit root_path
+    click_link "Log In"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_button "Log In"
+
+    visit user_path(user_2)
+
+    expect(current_path).not_to have_content(user_2.name)
   end
 end
