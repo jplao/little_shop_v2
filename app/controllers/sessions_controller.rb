@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
+    session.delete(:cart)
     redirect_to root_path, notice: "You have successfully logged out"
   end
 end
