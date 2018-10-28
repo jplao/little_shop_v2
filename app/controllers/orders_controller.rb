@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
 
   def index
-    if current_admin?
+    if current_admin? && params[:user_id]
+      @orders = Order.where(user_id: params[:user_id])
+    elsif current_admin?
       @orders = Order.all
     elsif current_user
       @orders = Order.where(user_id: session[:user_id])

@@ -23,8 +23,12 @@
 <div class="user_orders">
   <% if @user.orders.length > 0 %>
   <h2>My Orders</h2>
-    <%= link_to "My Orders", profile_orders_path(@user) %>
-  <% end %>
+    <% if current_admin? %>
+      <%= link_to "My Orders", user_orders_path(@user) %><br><br>
+    <% else %>
+      <%= link_to "My Orders", profile_orders_path(@user) %><br><br>
+      <% end %>
+    <% end %>
 
   <% if @user.role == "admin" %>
     <%= link_to "All Orders", orders_path %>
