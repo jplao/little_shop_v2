@@ -18,6 +18,14 @@ describe 'when any user visits the merchant index page' do
   end
 
   it 'shows enabled and disabled merchants' do
+    admin = create(:user, role:2)
+    visit login_path
+
+    fill_in :email, with: admin.email
+    fill_in :password, with: admin.password
+
+    click_button 'Log In'
+
     merchant_1 = create(:user, role:1)
     merchant_2 = create(:user, role:1, active:false)
 
@@ -30,9 +38,18 @@ describe 'when any user visits the merchant index page' do
     within("#user#{merchant_2.id}") do
       expect(page).to have_button('Enable')
     end
+    click_link 'Log Out'
   end
 
   it 'as a admin can disable merchants' do
+    admin = create(:user, role:2)
+    visit login_path
+
+    fill_in :email, with: admin.email
+    fill_in :password, with: admin.password
+
+    click_button 'Log In'
+
     merchant_1, merchant_2, merchant_3, merchant_4 = create_list(:user, 4, role:1)
 
     visit merchants_path
@@ -45,5 +62,6 @@ describe 'when any user visits the merchant index page' do
     within("#user#{merchant_1.id}") do
       expect(page).to have_button("Enable")
     end
+    click_link 'Log Out'
   end
 end

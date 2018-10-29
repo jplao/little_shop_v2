@@ -1,9 +1,12 @@
-<div class="dashboard_orders">
-  <% if @merchant.merchant_orders != [] %>
-    <%= link_to "Orders", dashboard_orders_path %>
-  <% end %>
-</div>
-
-<div class="dashboard_items">
-  <%= link_to "My Items", dashboard_items_path %>
+<br><h2>Merchant Dashboard</h2>
+<div class="dashboard">
+  <div class="dashboard_orders">
+    <% if @merchant.merchant_orders != [] %>
+      <%= link_to "Orders", dashboard_orders_path %>
+      <% end %>
+  </div>
+  <br>
+  <div class="dashboard_items">
+    <%= link_to "My Items", dashboard_items_path %>
+  </div>
 </div>
