@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     no_empty_params = user_params.reject { |k,v| v.empty? }
     if @user.authenticate(no_empty_params[:password])
+      if no_empty_params[:new_password]
+        no_empty_params[:password] = no_empty_params[:new_password]
+        no_empty_params.delete('new_password')
+      end
       if current_admin? && @user.update(no_empty_params)
         redirect_to user_path(@user), notice: "User Data Has Been Updated"
       elsif @user.update(no_empty_params)
@@ -29,6 +33,8 @@ class UsersController < ApplicationController
       else
         redirect_to profile_edit_path, notice: "That Email Is Already in Use"
       end
+
+
     elsif !no_empty_params[:password]
       redirect_to profile_edit_path, notice: "Please Enter Password Before Making Changes"
     else
@@ -74,10 +80,10 @@ class UsersController < ApplicationController
   def user_params
     if params[:user]
       params.require(:user).permit(:name, :city, :street_address,\
-        :state, :zip, :password, :email, :password_confirmation)
+        :state, :zip, :password, :email, :password_confirmation, :password, :new_password)
     else
       params.require(:profile).permit(:name, :city, :street_address,\
-        :state, :zip, :password, :email, :password_confirmation)
+        :state, :zip, :password, :email, :password, :password_confirmation, :new_password)
     end
   end
 end
