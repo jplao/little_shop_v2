@@ -57,6 +57,12 @@ describe 'Merchant dashboard items' do
       expect(page).to have_button('Enable')
     end
     click_link "Log Out"
+
+    it 'a merchant can enable and disable an item' do
+
+      visit dashboard_items_path
+
+    end
   end
 
   it 'does not show items sold by other merchants' do
