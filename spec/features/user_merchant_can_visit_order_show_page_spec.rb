@@ -46,5 +46,15 @@ describe "when a merchant visits the orders page from the dashbaord" do
 
     click_link("#{@item.name}")
     expect(current_path).to eq(item_path(@item))
+    click_link "Log Out"
+  end
+  it "they can click button to fulfill an item" do
+
+    visit order_path(@order)
+    save_and_open_page
+    within("#oi#{@order_item.id}") do
+      click_button("Fulfill")
+    end
+      expect(page).to have_content("Status: Fulfilled")
   end
 end
