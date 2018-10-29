@@ -59,15 +59,28 @@ describe 'Merchant dashboard items' do
     click_link "Log Out"
   end
 
-    it 'a merchant can enable and disable an item' do
-
+    it 'a merchant can disable an item' do
       visit dashboard_items_path
       within("#item#{@item.id}") do
         click_button "Disable"
       end
 
       expect(current_path).to eq(dashboard_items_path)
-      expect(page).to have_content("Item no longer for sale")
+      expect(page).to have_content("Item ##{@item.id} no longer for sale")
+
+      within("#item#{@item.id}") do
+        expect(page).to have_button("Enable")
+      end
+    end
+
+    it 'a merchant can disable an item' do
+      visit dashboard_items_path
+      within("#item#{@item.id}") do
+        click_button "Disable"
+      end
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("Item ##{@item.id} no longer for sale")
 
       within("#item#{@item.id}") do
         expect(page).to have_button("Enable")
