@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe 'cart functionality' do
-  describe 'as a user' do
+  before :each do
 
-    before :each do
+    @item_1 = create(:item, inventory_count: 3)
+    @item_2 = create(:item, inventory_count: 3)
+    @merchant_1, @merchant_2 = create_list(:user, 2)
 
-      @item_1 = create(:item, inventory_count: 3)
-      @item_2 = create(:item, inventory_count: 3)
-      @merchant_1, @merchant_2 = create_list(:user, 2)
+    @merchant_1.items = [@item_1]
+    @merchant_2.items = [@item_2]
+  end
 
-      @merchant_1.items = [@item_1]
-      @merchant_2.items = [@item_2]
-    end
+  context 'as any type of user' do
 
     it 'adds an item to cart' do
       visit item_path(@item_1)
@@ -147,5 +147,49 @@ describe 'cart functionality' do
       expect(page).to_not have_content(@item_1.name)
 
     end
+
+  end
+
+  context 'as a visitor' do
+
+    it "asks me to log in or register to finish order" do
+      visit cart_path
+      expect(page).to have_content('Please Log In or Register to Finish Checkout')
+    end
+
+    it "goes to registration when you click register" do
+      visit cart_path
+      within ('#checkout-notice') do
+        click_link 'Register'
+        expect(current_path).to eq(register_path)
+      end
+    end
+
+    it "goes to log in when you click log in" do
+      visit cart_path
+      within ('#checkout-notice') do
+        click_link 'Log In'
+        expect(current_path).to eq(login_path)
+      end
+
+    end
+  end
+
+  context 'as a registered user' do
+
+    before :each do
+      @user = create(:user)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
+    end
+
+    it "shows me a link to checkout" do
+      visit cart_path
+      expect(page).to have_button('Checkout')
+    end
+
   end
 end
