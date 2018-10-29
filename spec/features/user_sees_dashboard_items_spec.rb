@@ -95,7 +95,7 @@ describe 'Merchant dashboard items' do
     expect(page).not_to have_content(item_5.id)
     expect(page).not_to have_content(item_5.name)
     expect(page).not_to have_content(item_5.price)
-    expect(page).not_to have_content(item_5.inventory_count)
+    expect(page).not_to have_content("Inventory Count: #{item_5.inventory_count}")
     click_link "Log Out"
   end
 end
