@@ -34,6 +34,15 @@ describe 'when a user visits profile edit page' do
     expect(page).to have_content(email)
     expect(page).to have_content(@user.zip)
     click_link 'Log Out'
+    click_link 'Log In'
+    fill_in :email, with: email
+    fill_in :password, with: @user.password
+
+    click_button "Log In"
+    visit profile_path
+    expect(page).to have_content(name)
+    expect(page).to have_content(city)
+    expect(page).to have_content(email)
   end
 
   it 'user can change their password' do
