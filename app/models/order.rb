@@ -14,4 +14,5 @@ class Order < ApplicationRecord
   def self.orders_of_merchant(user)
     joins(:items).where("items.user_id = #{user}").uniq
   end
+
 end

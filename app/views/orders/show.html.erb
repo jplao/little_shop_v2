@@ -1,1 +1,14 @@
-Order Show Page
+<h2>Order Show Page</h2>
+
+Buyer Name: <%= @user.name %><br>
+Buyer Address: <%= @user.street_address %><br>
+
+<h3>Items Ordered</h3>
+<% @order_items.each do |oi| %>
+  <% if oi.associated_id(oi).user_id == current_user.id %>
+    <%= image_tag(oi.associated_id(oi).image) %><br>
+    Item Name: <%= oi.associated_id(oi).name %><br>
+    Price: <%= number_to_currency(oi.item_price) %><br>
+    Quantity: <%= oi.item_quantity %><br>
+  <% end %>
+<% end %>

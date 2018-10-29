@@ -4,4 +4,7 @@ class OrderItem < ApplicationRecord
   belongs_to :item
   belongs_to :order
 
+  def associated_id(oi)
+    Item.find(oi.item_id)
+  end
 end
