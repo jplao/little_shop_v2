@@ -8,6 +8,12 @@
     <br><%= f.label :password %>
     <%= f.password_field :password %>
 
+    <br><%= f.label :new_password %>
+    <%= f.password_field :new_password %>
+
+    <!-- <%# label_tag :new_password %>
+    <br><%# password_field_tag :new_password %> -->
+
     <br><%= f.label :street_address %>
     <%= f.text_field :street_address, placeholder: @user.street_address %>
 

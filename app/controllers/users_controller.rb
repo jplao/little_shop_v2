@@ -23,6 +23,10 @@ class UsersController < ApplicationController
     if user_params
       no_empty_params = user_params.reject { |k,v| v.empty? }
       if @user.authenticate(no_empty_params[:password])
+        if no_empty_params[:new_password]
+          no_empty_params[:password] = no_empty_params[:new_password]
+          no_empty_params.delete('new_password')
+        end
         if current_admin? && @user.update(no_empty_params)
           redirect_to user_path(@user), notice: "User Data Has Been Updated"
         elsif @user.update(no_empty_params)
@@ -84,10 +88,10 @@ class UsersController < ApplicationController
   def user_params
     if params[:user]
       params.require(:user).permit(:name, :city, :street_address,\
-        :state, :zip, :password, :email, :password_confirmation)
+        :state, :zip, :password, :email, :password_confirmation, :new_password)
     elsif params[:profile]
       params.require(:profile).permit(:name, :city, :street_address,\
-        :state, :zip, :password, :email, :password_confirmation)
+        :state, :zip, :password, :email, :password_confirmation, :new_password)
     else
       nil
     end
