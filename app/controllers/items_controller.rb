@@ -18,4 +18,7 @@ class ItemsController < ApplicationController
         redirect_to dashboard_items_path, notice: "Item ##{params[:id]} now available for sale"
     end
   end
+
+  def create
+  end 
 end
