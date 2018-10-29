@@ -1,4 +1,8 @@
-<h2>All Orders</h2>
+<% if current_admin? %>
+  <h2>All Orders</h2>
+<% else %>
+  <h2>My Orders</h2>
+<% end %>
 
 <div class='orders'>
 <% @orders.each do |order| %>

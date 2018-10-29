@@ -18,10 +18,6 @@ header {
   position: relative;
 }
 
-.merchants{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
 
 .flash{
   color: red;
@@ -37,9 +33,8 @@ header {
   box-shadow: 10px 10px 8px #888888;
 }
 
-.items {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.dashboard{
+  font-size: 30px;
 }
 
 .each_item{
@@ -48,6 +43,16 @@ header {
   background-color: #D7D8DC;
   text-align: center;
   box-shadow: 10px 10px 8px #888888;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.merchants{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .nav ul{
