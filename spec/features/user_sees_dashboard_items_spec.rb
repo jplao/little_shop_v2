@@ -57,13 +57,22 @@ describe 'Merchant dashboard items' do
       expect(page).to have_button('Enable')
     end
     click_link "Log Out"
+  end
 
     it 'a merchant can enable and disable an item' do
 
       visit dashboard_items_path
+      within("#item#{@item.id}") do
+        click_button "Disable"
+      end
 
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("Item no longer for sale")
+
+      within("#item#{@item.id}") do
+        expect(page).to have_button("Enable")
+      end
     end
-  end
 
   it 'does not show items sold by other merchants' do
     merchant_2 = create(:user, role: 1)
