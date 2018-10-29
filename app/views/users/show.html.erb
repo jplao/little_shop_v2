@@ -1,4 +1,7 @@
 <h2> <%= @user.name %></h2>
+<% if current_admin? %>
+  <%= button_to "Upgrade User", user_path(@user, toggle: "user"), method: :patch, class: "upgrade-button" %> 
+<% end %>
 <section class='user'>
   <div class="user-data">
     <h2>User info:</h2>
