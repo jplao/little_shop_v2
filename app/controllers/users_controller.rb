@@ -33,8 +33,6 @@ class UsersController < ApplicationController
       else
         redirect_to profile_edit_path, notice: "That Email Is Already in Use"
       end
-
-
     elsif !no_empty_params[:password]
       redirect_to profile_edit_path, notice: "Please Enter Password Before Making Changes"
     else

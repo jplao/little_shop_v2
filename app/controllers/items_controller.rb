@@ -20,6 +20,12 @@ class ItemsController < ApplicationController
   end
 
   def create
+    required_parmas[:name] = item_params[:name]
+    required_parmas[:description] = item_params[:description]
+    price = item_params[:price]
+
+    if required_parmas[:name]
+
     @item = Item.new(item_params)
     @item.save
     redirect_to dashboard_items_path, notice: "You have successfully added a new item"

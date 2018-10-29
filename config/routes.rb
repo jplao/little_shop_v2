@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
 
   namespace :dashboard do
-    resources :items, only: [:index, :new]
+    resources :items, only: [:index, :new, :create]
     resources :orders, only: [:index]
   end
 
