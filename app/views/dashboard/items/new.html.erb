@@ -17,6 +17,9 @@
     <br><%= f.label :inventory_count %>:
     <%= f.text_field :inventory_count %>
 
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :active, value: true %>
+
     <br><%= f.submit %>
   <% end %>
 </div>
