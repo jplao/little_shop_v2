@@ -86,7 +86,7 @@ describe 'user sees profile page' do
       visit user_path(@user)
 
       click_button 'Upgrade User'
-      click_button 'Log Out'
+      click_link 'Log Out'
 
       visit root_path
       click_link "Log In"
@@ -95,7 +95,7 @@ describe 'user sees profile page' do
       click_button "Log In"
 
       expect(page).to have_link("My Dashboard")
-      expect(User.find(@user.id).role).to eq(1)
+      expect(User.find(@user.id).role).to eq('merchant')
     end
   end
 
