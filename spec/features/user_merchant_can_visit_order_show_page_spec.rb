@@ -21,6 +21,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
     fill_in :password, with: @merchant.password
     click_button "Log In"
   end
+
   it "they can click an order id to visit order show page" do
     visit dashboard_orders_path
 
@@ -32,15 +33,18 @@ describe "when a merchant visits the orders page from the dashbaord" do
 
     visit dashboard_orders_path
     click_link("#{@order.id}")
-    save_and_open_page
+
     expect(page).to have_content(@order.user.name)
     expect(page).to have_content(@order.user.street_address)
 
-    expect(page).to have_content(@item.name)
+    expect(page).to have_link(@item.name)
     expect(page).to have_css("img[src='#{@item.image}']")
     expect(page).to have_content("$1.99")
     expect(page).to have_content(@order_item.item_quantity)
-    expect(page).not_to have_content(@item_2.name)
+    expect(page).not_to have_link(@item_2.name)
     expect(page).not_to have_content("$2.54")
+
+    click_link("#{@item.name}")
+    expect(current_path).to eq(item_path(@item))
   end
 end
