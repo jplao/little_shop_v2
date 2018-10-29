@@ -11,11 +11,11 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:commit] == "Disable"
-      active_status = false
+      @item.update(active: false)
+      redirect_to dashboard_items_path, notice: "Item ##{params[:id]} no longer for sale"
     else
-      active_status = true
+      @item.update(active: true)
+        redirect_to dashboard_items_path, notice: "Item ##{params[:id]} now available for sale"
     end
-    @item.update(active: active_status)
-    redirect_to dashboard_items_path, notice: "Item ##{params[:id]} no longer for sale"
   end
 end

@@ -73,17 +73,17 @@ describe 'Merchant dashboard items' do
       end
     end
 
-    it 'a merchant can disable an item' do
+    it 'a merchant can enable an item' do
       visit dashboard_items_path
-      within("#item#{@item.id}") do
-        click_button "Disable"
+      within("#item#{@item_4.id}") do
+        click_button "Enable"
       end
 
       expect(current_path).to eq(dashboard_items_path)
-      expect(page).to have_content("Item ##{@item.id} no longer for sale")
+      expect(page).to have_content("Item ##{@item_4.id} now available for sale")
 
-      within("#item#{@item.id}") do
-        expect(page).to have_button("Enable")
+      within("#item#{@item_4.id}") do
+        expect(page).to have_button("Disable")
       end
     end
 
