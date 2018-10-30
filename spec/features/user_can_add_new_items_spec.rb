@@ -61,7 +61,7 @@ describe 'as a merchant' do
     expect(current_path).to eq(new_dashboard_item_path)
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
-  end 
+  end
 
   it 'wont add a new item if description is left blank' do
     visit new_dashboard_item_path
@@ -123,6 +123,4 @@ describe 'as a merchant' do
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
   end
-
-
 end
