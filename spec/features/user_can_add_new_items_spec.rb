@@ -47,4 +47,81 @@ describe 'as a merchant' do
       expect(page).to have_button('Disable')
     end
   end
+
+  it 'wont add a new item if name is left blank' do
+    visit new_dashboard_item_path
+
+    fill_in :item_description, with: @item.description
+    fill_in :item_image, with: @item.image
+    fill_in :item_price, with: @item.price
+    fill_in :item_inventory_count, with: @item.inventory_count
+
+    click_button 'Create Item'
+    expect(page).to have_content("All required fields must be filled in")
+    expect(current_path).to eq(new_dashboard_item_path)
+    visit dashboard_items_path
+    expect(page).to_not have_content(@item.name)
+  end
+
+  it 'wont add a new item if description is left blank' do
+    visit new_dashboard_item_path
+
+    fill_in :item_name, with: @item.name
+    fill_in :item_image, with: @item.image
+    fill_in :item_price, with: @item.price
+    fill_in :item_inventory_count, with: @item.inventory_count
+
+    click_button 'Create Item'
+    expect(page).to have_content("All required fields must be filled in")
+    expect(current_path).to eq(new_dashboard_item_path)
+
+    visit dashboard_items_path
+    expect(page).to_not have_content(@item.name)
+  end
+
+  it 'wont add a new item if price is 0' do
+    visit new_dashboard_item_path
+
+    fill_in :item_name, with: @item.name
+    fill_in :item_description, with: @item.description
+    fill_in :item_image, with: @item.image
+    fill_in :item_price, with: 0
+    fill_in :item_inventory_count, with: @item.inventory_count
+
+    click_button 'Create Item'
+    expect(page).to have_content("All required fields must be filled in")
+    expect(current_path).to eq(new_dashboard_item_path)
+
+    visit dashboard_items_path
+    expect(page).to_not have_content(@item.name)
+  end
+
+  it 'wont add a new item if inventory is 0' do
+    visit new_dashboard_item_path
+
+    fill_in :item_name, with: @item.name
+    fill_in :item_description, with: @item.description
+    fill_in :item_image, with: @item.image
+    fill_in :item_price, with: @item.price
+    fill_in :item_inventory_count, with: 0
+
+    click_button 'Create Item'
+    expect(page).to have_content("All required fields must be filled in")
+    expect(current_path).to eq(new_dashboard_item_path)
+
+    visit dashboard_items_path
+    expect(page).to_not have_content(@item.name)
+  end
+
+  it 'wont add a new item if everything is blank' do
+    visit new_dashboard_item_path
+
+    click_button 'Create Item'
+    expect(page).to have_content("All required fields must be filled in")
+    expect(current_path).to eq(new_dashboard_item_path)
+
+    visit dashboard_items_path
+    expect(page).to_not have_content(@item.name)
+  end
+
 end
