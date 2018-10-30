@@ -2,26 +2,14 @@ class CartsController < ApplicationController
 
   def create
     item = Item.find(params[:item_id])
-    session[:cart] ||= Hash.new
-    session[:cart][item.id.to_s] ||= 0
-    session[:cart][item.id.to_s] += 1
+    @cart.add_item(item.id)
+    session[:cart] = @cart.contents
     redirect_to item_path(item), notice: "Item Added to Cart"
   end
 
   def index
-    if current_user
-      @current_user = current_user
-    end
-
-    if session[:cart]
-      @items = session[:cart].inject(Hash.new(0)) do |hash, (item_id, count)|
-        item = Item.find(item_id)
-        hash[item] = count
-        hash
-      end
-    else
-      @items = []
-    end
+    @current_user = current_user if current_user
+    @items = @cart.item_quantity_hash
   end
 
   def update
@@ -29,7 +17,7 @@ class CartsController < ApplicationController
     if params[:thing_to_do] == "remove"
       session[:cart].delete(item_id)
     elsif params[:thing_to_do] == "more" && session[:cart][item_id] < Item.find(item_id).inventory_count
-      session[:cart][item_id] += 1
+      @cart.add_item(item_id)
     elsif params[:thing_to_do] == "less" && session[:cart][item_id] > 1
       session[:cart][item_id] -= 1
     elsif params[:thing_to_do] == "less" && session[:cart][item_id] == 1

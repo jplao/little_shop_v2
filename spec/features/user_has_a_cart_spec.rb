@@ -23,7 +23,6 @@ describe 'cart functionality' do
       expect(page).to have_content('Cart (1)')
 
       visit item_path(@item_2)
-
       click_on('Add to Cart')
       click_on('Add to Cart')
 
