@@ -1,10 +1,22 @@
 class UsersController < ApplicationController
 
+  def index
+    if params[:display] == "all"
+      @users = User.all
+      @header = "Users"
+    else
+      @users = User.where(role: 1)
+      @header = "Merchants"
+    end
+  end
+
   def show
     if current_admin? && params[:id]
       @user = User.find(params[:id])
       if @user.role == "merchant"
         redirect_to merchant_path(@user)
+      elsif @user.role == "admin"
+        redirect_to profile_path
       end
     elsif current_user
       @user = current_user
@@ -80,15 +92,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    if params[:display] == "all"
-      @users = User.all
-      @header = "Users"
-    else
-      @users = User.where(role: 1)
-      @header = "Merchants"
-    end
-  end
 
   private
 
