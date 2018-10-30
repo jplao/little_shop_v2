@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+    @top_item = Item.top_items
   end
 
   def show
