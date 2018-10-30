@@ -13,4 +13,18 @@ describe Item, type: :model do
     it {should have_many :order_items}
     it {should have_many(:orders).through(:order_items)}
   end
+
+  describe "Class Methods" do
+    it "should reduce inventory for an item" do
+    merchant = create(:user, role: 1)
+    item = create(:item, inventory_count: 10, user: merchant)
+    user = create(:user)
+    order = create(:order, user: user)
+    order_item = order.order_items.create(item: item, item_quantity: 6)
+
+    Item.reduce_inventory(order_item)
+
+    expect(item.inventory_count).to eq(4)
+    end
+  end
 end

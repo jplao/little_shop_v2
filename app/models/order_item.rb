@@ -7,4 +7,5 @@ class OrderItem < ApplicationRecord
   def associated_id(oi)
     Item.find(oi.item_id)
   end
+
 end

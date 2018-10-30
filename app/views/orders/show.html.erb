@@ -13,14 +13,20 @@ Buyer Address: <%= @user.street_address %><br>
       Item Name: <%= link_to oi.associated_id(oi).name, item_path(oi.associated_id(oi)) %><br>
       Price: <%= number_to_currency(oi.item_price) %><br>
       Quantity: <%= oi.item_quantity %><br>
-      <% if oi.fulfill == true %>
-        Status: <%= "Fulfilled" %>
-      <% else %>
-        <%= form_for oi, url: order_item_path(oi), method: :patch do |f| %>
-          <%= f.hidden_field :fulfill, :value => true %>
-          <%= f.hidden_field :order_id, :value => oi.order_id %>
-          <%= f.submit "Fulfill"%>
+      <% if oi.item_quantity <=  oi.associated_id(oi).inventory_count %>
+        <% if oi.fulfill == true %>
+          Status: <%= "Fulfilled" %>
+        <% else %>
+          <%= form_for oi, url: order_item_path(oi), method: :patch do |f| %>
+            <%= f.hidden_field :fulfill, :value => true %>
+            <%= f.hidden_field :order_id, :value => oi.order_id %>
+            <%= f.submit "Fulfill"%>
+          <% end %>
         <% end %>
+      <% else %>
+        <div class="flash">
+          Item cannot be fulfilled
+        </div>
       <% end %>
     <% end %>
     </div>

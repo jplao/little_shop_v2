@@ -51,10 +51,25 @@ describe "when a merchant visits the orders page from the dashbaord" do
   it "they can click button to fulfill an item" do
 
     visit order_path(@order)
-    save_and_open_page
     within("#oi#{@order_item.id}") do
       click_button("Fulfill")
     end
+
       expect(page).to have_content("Status: Fulfilled")
+      expect(page).to have_content("Item has been fulfilled")
+      click_link "Log Out"
+  end
+  it "they cannot fulfill an item if there is not enough in inventory" do
+    @item_3 = create(:item, inventory_count: 1)
+    @merchant.items = [@item_3]
+    @order_item_3 = @order.order_items.create(item: @item_3, item_price: 2.54, item_quantity: 15)
+
+    visit order_path(@order)
+
+    within("#oi#{@order_item_3.id}") do
+      expect(page).not_to have_button("Fulfill")
+      expect(page).to have_content("Item cannot be fulfilled")
+    end
+    click_link "Log Out"
   end
 end
