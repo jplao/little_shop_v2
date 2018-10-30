@@ -64,4 +64,19 @@ describe 'when any user visits the merchant index page' do
     end
     click_link 'Log Out'
   end
+
+  it 'as user, cannot link to merchant show page' do
+    user = create(:user)
+    merchant = create(:user, role: 1)
+    visit login_path
+
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+
+    click_button 'Log In'
+
+    click_link "All Merchants"
+
+    expect(page).not_to have_link(merchant.name)
+  end
 end

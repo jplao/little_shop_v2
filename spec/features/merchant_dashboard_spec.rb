@@ -145,5 +145,14 @@ describe 'Merchant dashboard' do
       expect(page).to_not have_link("My Dashboard")
       expect(User.find(@merchant.id).role).to eq('user')
     end
+
+    it 'redirects from merchant dashboard to use show page if they are a user' do
+
+      user = create(:user)
+
+      visit merchant_path(user)
+
+      expect(current_path).to eq(user_path(user))
+    end
   end
 end
