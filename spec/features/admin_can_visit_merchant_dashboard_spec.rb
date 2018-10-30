@@ -20,7 +20,7 @@ RSpec.describe 'visiting merchant dashboard' do
 
       expect(current_path).to eq(merchant_path(@merchant))
 
-      click_button "Edit Merchant Profile"
+      click_link "Edit Merchant Profile"
 
       fill_in :profile_name, with: "New Name"
       fill_in :profile_city, with: "New City"
@@ -29,9 +29,12 @@ RSpec.describe 'visiting merchant dashboard' do
       click_button "Edit User"
 
       expect(current_path).to eq(merchant_path(@merchant))
-      expect(page).to have_content("New Name")
-      expect(page).to have_content("New City")
-      expect(page).to have_content("New Email")
+
+      click_link("All Merchants")
+
+      within "#user#{@merchant.id}" do
+        expect(page).to have_content(User.find(@merchant.id).name)
+      end
 
     end
   end
