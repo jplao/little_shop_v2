@@ -22,19 +22,33 @@ class Cart
     end
   end
 
-  private
+  def update_item(item_id, method)
+    if method == "more"
+      add_item(item_id)
+    elsif method == "less"
+      subtact_item(item_id)
+    elsif method == "remove"
+      @contents.delete(item_id.to_s)
+    end
+
+  end
+
+  # private
 
   def add_item(item_id)
-    if Item.find(item_id).inventory_count > 0
-      @contents[item_id.to_s] ||= 0
+    item_count = Item.find(item_id).inventory_count
+    @contents[item_id.to_s] ||= 0
+    if @contents[item_id.to_s] < item_count
       @contents[item_id.to_s] += 1
-    else
-
     end
+  end
 
-
-    def subtact_item
-
+  def subtact_item(item_id)
+    if @contents[item_id.to_s] > 1
+      @contents[item_id.to_s] -= 1
+    elsif @contents[item_id.to_s] == 1
+      @contents.delete(item_id.to_s)
     end
+  end
 
 end
