@@ -81,7 +81,7 @@ describe 'user sees profile page' do
       expect(page).to have_content('User has been upgraded to merchant')
     end
 
-    it 'the user is merchant after admin upgrades them' do
+    it 'the user is a merchant after admin upgrades them' do
 
       visit user_path(@user)
 
