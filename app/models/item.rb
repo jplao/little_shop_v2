@@ -1,5 +1,7 @@
 class Item < ApplicationRecord
-  validates_presence_of :name, :description, :price, :inventory_count
+  validates_presence_of :name, :description
+  validates :price, numericality: {greater_than: 0}, presence: true
+  validates :inventory_count, numericality: {greater_than: 0}, presence: true
 
   belongs_to :user
   has_many :order_items
