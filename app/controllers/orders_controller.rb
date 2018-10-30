@@ -13,6 +13,12 @@ class OrdersController < ApplicationController
   end
 
   def show
+    user_id = Order.find(params[:id]).user_id
+    @user = User.find(user_id)
+    if current_user.role == "merchant"
+      @order = Order.find(params[:id])
+      @order_items = OrderItem.where(order_id: @order.id)
+    end
   end
 
   def destroy
