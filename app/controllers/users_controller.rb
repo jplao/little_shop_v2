@@ -45,6 +45,10 @@ class UsersController < ApplicationController
           @user.role = 1
           @user.save
           redirect_to merchant_path(@user), notice: 'User has been upgraded to merchant'
+        elsif params[:toggle] == "merchant"
+          @user.role = 0
+          @user.save
+          redirect_to user_path(@user), notice: 'Merchant has been downgraded to user'
         end
       end
     end
