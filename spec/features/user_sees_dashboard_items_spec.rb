@@ -89,7 +89,7 @@ describe 'Merchant dashboard items' do
 
   it 'does not show items sold by other merchants' do
     merchant_2 = create(:user, role: 1)
-    item_5 = create(:item, user: merchant_2, inventory_count: 100)
+    item_5 = create(:item, user: merchant_2, inventory_count: 100, id: 1000000)
 
     visit dashboard_items_path
     expect(page).not_to have_content(item_5.id)
