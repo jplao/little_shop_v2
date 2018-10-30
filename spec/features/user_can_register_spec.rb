@@ -48,7 +48,6 @@ describe 'user registration' do
     visit root_path
 
     click_on 'Register'
-
     expect(current_path).to eq(register_path)
     fill_in :user_name, with: user_2.name
     fill_in :user_street_address, with: user_2.street_address
