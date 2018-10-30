@@ -35,7 +35,7 @@ User.all.each do |user|
     description = Faker::Hipster.paragraph(2, true, 4)
     image = "https://www.formaggiokitchen.com/shop/media/catalog/category/Honey-Category-Hero.jpg"
     price = Faker::Commerce.price(range = 0.01..10.00, as_string = true)
-    item = user.items.create(name: name, description: description, image: image, price: price, inventory_count: rand(1..25))
+    item = user.items.create(name: name, description: description, image: image, price: price, inventory_count: rand(1..25), active: true)
   end
 end
 
