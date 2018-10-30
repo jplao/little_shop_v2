@@ -57,4 +57,48 @@ describe 'user sees profile page' do
     expect(page).to have_content('You are not logged in')
   end
 
+  context 'as an admin' do
+
+    before(:each) do
+      @admin = create(:user, role: 2)
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+      click_button "Log In"
+
+      @user = create(:user)
+
+    end
+
+    it 'the user can be upgraded to a merchant' do
+
+      visit user_path(@user)
+
+      click_button 'Upgrade User'
+
+      expect(current_path).to eq(merchant_path(@user))
+      expect(page).to have_content('User has been upgraded to merchant')
+    end
+
+    it 'the user is a merchant after admin upgrades them' do
+
+      visit user_path(@user)
+
+      click_button 'Upgrade User'
+      click_link 'Log Out'
+
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
+
+      expect(page).to have_link("My Dashboard")
+      expect(User.find(@user.id).role).to eq('merchant')
+    end
+  end
+
+
+
 end

@@ -20,9 +20,14 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.save
-    redirect_to dashboard_items_path, notice: "You have successfully added a new item"
+    if item_params[:name] != "" && item_params[:description] != "" && \
+      item_params[:price].to_i > 0 && item_params[:inventory_count].to_i > 0
+      @item = Item.new(item_params)
+      @item.save
+      redirect_to dashboard_items_path, notice: "You have successfully added a new item"
+    else
+      redirect_to new_dashboard_item_path(item_params: item_params), notice: "All required fields must be filled in"
+    end
   end
 
   private

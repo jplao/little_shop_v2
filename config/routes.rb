@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/profile/orders', to: 'orders#index'
 
   namespace :dashboard do
-    resources :items, only: [:index, :new]
+    resources :items, only: [:index, :new, :create]
     resources :orders, only: [:index]
   end
 
@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
   get '/merchants', to: 'users#index'
-  get '/merchants/:id', to: 'users#show'
+  resources :merchants, only: [:show]
+  # get '/merchants/:id', to: 'users#show'
 
   namespace :admin do
     resources :users, only: [:update, :destroy]
