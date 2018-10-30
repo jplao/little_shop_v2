@@ -14,4 +14,9 @@ class User < ApplicationRecord
     Order.joins(:items).where('items.user_id = ?', self.id)
   end
 
+  def self.top_merchants
+    ids = Item.top_seller_ids
+    User.where(id: ids)
+  end
+
 end

@@ -28,5 +28,33 @@ describe Item, type: :model do
 
     expect(Item.find(order_item.item_id).inventory_count).to eq(4)
     end
+
+    it '.top_items' do
+      merch_1, merch_2, merch_3, merch_4, merch_5, merch_6 = create_list(:user, 6, role: 1)
+
+      item_1 = create(:item, user: merch_1)
+      item_2 = create(:item, user: merch_2)
+      item_3 = create(:item, user: merch_3)
+      item_4 = create(:item, user: merch_4)
+      item_5 = create(:item, user: merch_5)
+      item_6 = create(:item, user: merch_6)
+
+      order = create(:order, status: "complete", user: merch_6)
+
+      create(:order_item, order: order, item: item_1, item_quantity: 2)
+      create(:order_item, order: order, item: item_2, item_quantity: 3)
+      create(:order_item, order: order, item: item_3, item_quantity: 4)
+      create(:order_item, order: order, item: item_4, item_quantity: 5)
+      create(:order_item, order: order, item: item_5, item_quantity: 6)
+      create(:order_item, order: order, item: item_6, item_quantity: 1)
+
+
+      expect(Item.top_items[0]).to eq (item_5)
+      expect(Item.top_items[1]).to eq (item_4)
+      expect(Item.top_items[2]).to eq (item_3)
+      expect(Item.top_items[3]).to eq (item_2)
+      expect(Item.top_items[4]).to eq (item_1)
+    end
+
   end
 end
