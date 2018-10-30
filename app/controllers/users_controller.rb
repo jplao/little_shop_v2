@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   def show
     if current_admin? && params[:id]
       @user = User.find(params[:id])
+      if @user.role == "merchant"
+        redirect_to merchant_path(@user)
+      end
     elsif current_user
       @user = current_user
     else
