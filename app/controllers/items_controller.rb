@@ -18,8 +18,8 @@ class ItemsController < ApplicationController
       notice = toggle_item(params[:commit])
       redirect_to dashboard_items_path, notice: notice
     elsif params[:commit] == "Update Item"
-      update_item(item_params)
-      redirect_to dashboard_items_path, notice: "Item Has Been Updated"
+      notices = update_item(item_params)
+      redirect_to dashboard_items_path, notice: notices
     end
   end
 
@@ -50,9 +50,16 @@ class ItemsController < ApplicationController
   end
 
   def update_item(params)
-
-    # Some validations here
-    @item.update(params)
+    notices = []
+    notices << "Name Cannot Be Blank" if params[:name].empty?
+    notices << "Description Cannot Be Blank" if params[:description].empty?
+    notices << "Price Must Be Greater Than $0" if params[:price].to_i <= 0
+    notices << "Inventory Must Be Greater Than $0" if params[:inventory_count].to_i <= 0
+    if notices.empty?
+      @item.update(params)
+      notices << "Item Has Been Updated"
+    end
+    return notices
   end
 
 end

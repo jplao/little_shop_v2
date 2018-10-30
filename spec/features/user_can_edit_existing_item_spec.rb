@@ -35,7 +35,7 @@ describe 'as a merchant' do
     expect(page).to have_content("Inventory Count: #{new_count}")
   end
 
-  it 'information not in update included wont be updated' do
+  it 'information not included wont be updated' do
     new_name = "New_Item"
 
     visit dashboard_items_path
@@ -49,6 +49,34 @@ describe 'as a merchant' do
 
     expect(page).to have_content("Item Has Been Updated")
     expect(page).to have_content(new_name)
+    expect(page).to have_content("Price: #{@item.price}")
+    expect(page).to have_content("Inventory Count: #{@item.inventory_count}")
+  end
+
+  it 'user can update information of an existing item' do
+    new_name = "New_Item"
+    new_price = 0
+    new_count = 0
+
+    visit dashboard_items_path
+    click_on 'Edit Item'
+    expect(current_path).to eq(edit_item_path(@item))
+
+    fill_in :item_name, with: ""
+    fill_in :item_description, with: ""
+    fill_in :item_price, with: new_price
+    fill_in :item_inventory_count, with: new_count
+    click_on 'Update Item'
+
+    expect(current_path).to eq(dashboard_items_path)
+
+    expect(page).to have_content("Name Cannot Be Blank")
+    expect(page).to have_content("Description Cannot Be Blank")
+    expect(page).to have_content("Price Must Be Greater Than $0")
+    expect(page).to have_content("Inventory Must Be Greater Than $0")
+
+    expect(page).to have_content(@item.name)
+    expect(page).to have_css("img[src='#{@item.image}']")
     expect(page).to have_content("Price: #{@item.price}")
     expect(page).to have_content("Inventory Count: #{@item.inventory_count}")
   end
