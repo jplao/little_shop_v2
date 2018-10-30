@@ -97,6 +97,24 @@ describe 'user sees profile page' do
       expect(page).to have_link("My Dashboard")
       expect(User.find(@user.id).role).to eq('merchant')
     end
+
+    it 'cannot see upgrade button to demote self' do
+
+      visit profile_path
+
+      expect(page).not_to have_button("Upgrade User")
+
+    end
+
+    it 'redirects from user show page to merchant dashboard if they are merchant' do
+
+      merchant = create(:user, role: 1)
+
+      visit user_path(merchant)
+
+      expect(current_path).to eq(merchant_path(merchant))
+    end
+
   end
 
 
