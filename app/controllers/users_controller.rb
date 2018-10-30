@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    if params[:display] == "all"
+    if params[:display] == "all" || current_admin?
       @users = User.all
       @header = "Users"
     else
