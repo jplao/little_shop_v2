@@ -146,11 +146,13 @@ describe 'Merchant dashboard' do
       expect(User.find(@merchant.id).role).to eq('user')
     end
 
-    it 'redirects from user show page to merchant dashboard if they are merchant' do
+    it 'redirects from merchant dashboard to use show page if they are a user' do
 
-      visit user_path(@merchant)
+      user = create(:user)
 
-      expect(current_path).to eq(merchant_path(@merchant))
+      visit merchant_path(user)
+
+      expect(current_path).to eq(user_path(user))
     end
   end
 end

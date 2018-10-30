@@ -97,6 +97,16 @@ describe 'user sees profile page' do
       expect(page).to have_link("My Dashboard")
       expect(User.find(@user.id).role).to eq('merchant')
     end
+
+    it 'redirects from user show page to merchant dashboard if they are merchant' do
+
+      merchant = create(:user, role: 1)
+
+      visit user_path(merchant)
+
+      expect(current_path).to eq(merchant_path(merchant))
+    end
+
   end
 
 
