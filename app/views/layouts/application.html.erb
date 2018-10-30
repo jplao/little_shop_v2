@@ -15,7 +15,7 @@
         <li><%= link_to 'Home', root_path, class: 'home-link'%></li>
         <li><%= link_to 'All Items', items_path, class: 'all-items-link'%></li>
         <li><%= link_to 'All Merchants', merchants_path, class: 'all-merchants-link'%></li>
-        <li><%= link_to "Shopping Cart (#{@cart_count})", cart_path, class: 'shopping-cart-link'%></li>
+        <li><%= link_to "Shopping Cart (#{@cart.cart_count})", cart_path, class: 'shopping-cart-link'%></li>
         <% if current_user %>
           <% if current_user.role != "user" %>
             <li> <%= link_to 'My Dashboard', dashboard_path, class: 'dashboard-link'%></li>
