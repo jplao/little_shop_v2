@@ -34,8 +34,8 @@ User.all.each do |user|
     name = Faker::Hipster.unique.sentence(1)
     description = Faker::Hipster.paragraph(2, true, 4)
     image = "https://www.formaggiokitchen.com/shop/media/catalog/category/Honey-Category-Hero.jpg"
-    price = Faker::Commerce.price(range = 0..10.00, as_string = true)
-    item = user.items.create(name: name, description: description, image: image, price: price, inventory_count: rand(0..25))
+    price = Faker::Commerce.price(range = 0.01..10.00, as_string = true)
+    item = user.items.create(name: name, description: description, image: image, price: price, inventory_count: rand(1..25))
   end
 end
 
@@ -80,9 +80,9 @@ end
 
 # Order Items
 Order.all.each do |order|
-  number_of_items = rand(0..10)
+  number_of_items = rand(1..10)
   number_of_items.times do
     item = Item.all.shuffle.pop
-    order_item = order.order_items.create(item_id: item.id, item_price: item.price, item_quantity: rand(0..10))
+    order_item = order.order_items.create(item_id: item.id, item_price: item.price, item_quantity: rand(1..10), fulfill: [true,false].sample)
   end
 end
