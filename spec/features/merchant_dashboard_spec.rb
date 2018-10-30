@@ -125,7 +125,7 @@ describe 'Merchant dashboard' do
 
       click_button 'Downgrade User'
 
-      expect(current_path).to eq(user_path(@user))
+      expect(current_path).to eq(user_path(@merchant))
       expect(page).to have_content('Merchant has been downgraded to user')
     end
 
@@ -143,7 +143,7 @@ describe 'Merchant dashboard' do
       click_button "Log In"
 
       expect(page).to_not have_link("My Dashboard")
-      expect(User.find(@merchant.id).role).to eq('default')
+      expect(User.find(@merchant.id).role).to eq('user')
     end
   end
 end
