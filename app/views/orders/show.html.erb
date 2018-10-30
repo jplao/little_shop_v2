@@ -7,8 +7,8 @@ Buyer Address: <%= @user.street_address %><br>
 <% if @order_items != nil %>
   <h3>Items Ordered</h3>
   <% @order_items.each do |oi| %>
-  <div class="each_item" id="oi<%= oi.id%>">
     <% if oi.associated_id(oi).user_id == current_user.id %>
+    <div class="each_item" id="oi<%= oi.id%>">
       <%= image_tag(oi.associated_id(oi).image) %><br>
       Item Name: <%= link_to oi.associated_id(oi).name, item_path(oi.associated_id(oi)) %><br>
       Price: <%= number_to_currency(oi.item_price) %><br>
