@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   def index
     @items = Item.where(active: true)
     @top_item = Item.top_items
+    @top_merch = User.top_merchants
   end
 
   def show
