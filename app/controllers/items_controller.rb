@@ -8,14 +8,18 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   def update
     @item = Item.find(params[:id])
-    if params[:commit] == "Disable"
-      @item.update(active: false)
-      redirect_to dashboard_items_path, notice: "Item ##{params[:id]} no longer for sale"
-    else
-      @item.update(active: true)
-        redirect_to dashboard_items_path, notice: "Item ##{params[:id]} now available for sale"
+    if params[:commit] == "Disable" || params[:commit] == "Enable"
+      notice = toggle_item(params[:commit])
+      redirect_to dashboard_items_path, notice: notice
+    elsif params[:commit] == "Update Item"
+      update_item(item_params)
+      redirect_to dashboard_items_path, notice: "Item Has Been Updated"
     end
   end
 
@@ -35,4 +39,22 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :image,\
       :price, :inventory_count, :user_id, :active)
   end
+
+  def toggle_item(enable_disable)
+    if enable_disable == "Enable"
+      @item.update(active: true)
+      notice = "Item ##{params[:id]} now available for sale"
+    elsif enable_disable == "Disable"
+      @item.update(active: false)
+      notice = "Item ##{params[:id]} no longer for sale"
+    end
+    return notice
+  end
+
+  def update_item(params)
+
+    # Some validations here
+    @item.update(params)
+  end
+
 end
