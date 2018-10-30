@@ -10,8 +10,8 @@ describe 'when an admin user visits the user index page' do
     fill_in :password, with: "admin"
     click_button "Log In"
 
-    visit users_path
-
+    click_link "All Users"
+  
     within("#user#{user.id}") do
       click_button "Disable"
     end
@@ -37,11 +37,11 @@ describe 'when an admin user visits the user index page' do
     user = create(:user, email: "name", password: "name")
     visit root_path
     click_link "Log In"
-    fill_in :email, with: "admin"
-    fill_in :password, with: "admin"
+    fill_in :email, with: admin.email
+    fill_in :password, with: admin.password
     click_button "Log In"
 
-    visit users_path
+    click_link "All Users"
 
     within("#user#{user.id}") do
       click_button "Disable"
