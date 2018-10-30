@@ -28,6 +28,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
     click_link("#{@order.id}")
 
     expect(current_path).to eq(order_path(@order))
+    click_link "Log Out"
   end
   it "they can see see all order info on the show page" do
 

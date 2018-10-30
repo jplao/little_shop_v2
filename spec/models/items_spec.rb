@@ -24,7 +24,7 @@ describe Item, type: :model do
 
     Item.reduce_inventory(order_item)
 
-    expect(item.inventory_count).to eq(4)
+    expect(Item.find(order_item.item_id).inventory_count).to eq(4)
     end
   end
 end
