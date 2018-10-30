@@ -18,6 +18,18 @@ header {
   position: relative;
 }
 
+.button{
+  background-color: #D7D8DC;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+}
 
 .flash{
   color: red;
@@ -61,6 +73,18 @@ header {
   padding: 0;
   display: flex;
   justify-content: space-around;
+}
+
+.orders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.trash-button{
+  margin: 4px;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .user{

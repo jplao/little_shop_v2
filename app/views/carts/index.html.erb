@@ -1,35 +1,33 @@
-<div id='checkout-notice'>
-  <% if @current_user %>
-  <%= button_to "Checkout", profile_orders_path %>
-  <% else %>
-    Please <%= link_to "Log In" ,login_path, class: "login-banner-link" %> or <%= link_to "Register" ,register_path, class: "register-banner-link" %> to Finish Checkout
-  <% end %>
-
-</div>
-
-<% @items.each do |item, quantity| %>
-  <div id="item-<%= item.id %>"  >
-    <span>
-      <%= item.name %>
-      <%= button_to "🗑", cart_path(item_id: item.id, thing_to_do: :remove), method: :put, class: "trash-button" %>
-    </span>
-    <%= item.user.name %>
-    <img src=<%= item.image %> >
-    <%= number_to_currency(item.price) %>
-    <span>
-      Quantity: <%= quantity %>
-      <%= button_to "➕", cart_path(item_id: item.id, thing_to_do: :more), method: :put, class: "trash-button" %>
-      <%= button_to "➖", cart_path(item_id: item.id, thing_to_do: :less), method: :put, class: "trash-button" %>
-
-    </span>
-    Subtotal: <%= number_to_currency(item.price * quantity) %>
-  </div>
-<% end %>
+<h2> Cart </h2>
 
 <% total = 0 %>
 <% @items.each do |item, quantity| %>
-  <% total += (item.price * quantity) %>
+<% total += (item.price * quantity) %>
 <% end %>
-Total: <%= number_to_currency(total) %>
+<h3>Total: <%= number_to_currency(total) %><br> </h3>
+<%= link_to 'Empty Cart', cart_path, class: 'empty-cart-link', method: :delete, data: {confirm: "Do you really want to remove all items from cart?"}%><br><br>
 
-<%= link_to 'Empty Cart', cart_path, class: 'empty-cart-link', method: :delete, data: {confirm: "Do you really want to remove all items from cart?"}%>
+<div id='checkout-notice'>
+  <% if @current_user %>
+  <%= button_to "Checkout", profile_orders_path, class: "button" %>
+  <% else %>
+    Please <%= link_to "Log In" ,login_path, class: "login-banner-link" %> or <%= link_to "Register" ,register_path, class: "register-banner-link" %> to Finish Checkout
+  <% end %>
+</div>
+
+<br><h3> Items: </h3>
+<div class='items'>
+<% @items.each do |item, quantity| %>
+  <div class="each_item" id="item-<%= item.id %>" >
+    <h3><%= item.name %></h3>
+    Seller: <%= item.user.name %>
+    <img src=<%= item.image %> >
+    Price: <%= number_to_currency(item.price) %><br>
+    Quantity: <%= quantity %>
+      <%= button_to "➕", cart_path(item_id: item.id, thing_to_do: :more), method: :put, class: "trash-button" %>
+      <%= button_to "➖", cart_path(item_id: item.id, thing_to_do: :less), method: :put, class: "trash-button" %>
+    Subtotal: <%= number_to_currency(item.price * quantity) %>
+    <%= button_to "🗑", cart_path(item_id: item.id, thing_to_do: :remove), method: :put, class: "trash" %>
+  </div>
+<% end %>
+</div>
