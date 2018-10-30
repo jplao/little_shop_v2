@@ -146,7 +146,7 @@ describe 'when a user visits profile edit page' do
 
     expect(current_path).to eq(user_path(@user))
     expect(page).to have_content("New Name")
-    expect(page).to have_content("New Name")
+    expect(page).to have_content("New City")
     expect(page).to have_content("New Email")
     click_link 'Log Out'
   end
