@@ -3,7 +3,10 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
-    redirect_to merchants_path
+    if !@user.active
+      
+    end
+    redirect_to merchants_path, notice: "User account has been disabled"
   end
 
   private

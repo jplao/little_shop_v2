@@ -66,7 +66,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
     @order_item_3 = @order.order_items.create(item: @item_3, item_price: 2.54, item_quantity: 15)
 
     visit order_path(@order)
-    save_and_open_page
+
     within("#oi#{@order_item_3.id}") do
       expect(page).not_to have_button("Fulfill")
       expect(page).to have_content("Item cannot be fulfilled")
