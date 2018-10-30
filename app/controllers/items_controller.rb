@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = Item.all
+    @items = Item.where(active: true)
     @top_item = Item.top_items
   end
 
