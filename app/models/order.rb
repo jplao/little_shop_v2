@@ -11,8 +11,8 @@ class Order < ApplicationRecord
     order_items.sum("order_items.item_quantity * order_items.item_price")
   end
 
-  def self.orders_of_merchant(user)
-    joins(:items).where("items.user_id = #{user}").uniq
+  def self.orders_of_merchant(user_id)
+    joins(:items).where("items.user_id = #{user_id}").uniq
   end
 
 end
