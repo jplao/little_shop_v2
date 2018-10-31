@@ -1,0 +1,20 @@
+<section class='user'>
+  <div class="user-data">
+    <h2>User info:</h2>
+    <strong>Street Address: </strong><%= @user.street_address %><br>
+    <strong>City: </strong><%= @user.city %><br>
+    <strong>State: </strong><%= @user.state %><br>
+    <strong>Zip: </strong><%= @user.zip %><br>
+    <strong>Email: </strong><%= @user.email %><br>
+    <% if current_admin? %>
+      <%= link_to "Edit Profile", edit_user_path(@user) %><br><br>
+    <% else %>
+      <%= link_to "Edit Profile", profile_edit_path %><br><br>
+    <% end %>
+  </div>
+
+  <div class="user-stats">
+    <h2>Statistics</h2>
+  </div>
+</section>
+<br>

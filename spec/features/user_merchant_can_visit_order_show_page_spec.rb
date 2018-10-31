@@ -5,7 +5,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
     @merchant = create(:user, role: 1)
     @merchant_2 = create(:user, role: 1)
     @customer = create(:user)
-    @item = create(:item)
+    @item = create(:item, inventory_count: 50)
     @item_2 = create(:item)
     @order, @order_2 = create_list(:order, 2)
     @merchant.items = [@item]
@@ -52,6 +52,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
   it "they can click button to fulfill an item" do
 
     visit order_path(@order)
+    save_and_open_page
     within("#oi#{@order_item.id}") do
       click_button("Fulfill")
     end

@@ -68,16 +68,28 @@ RSpec.describe 'visiting merchant dashboard' do
     end
 
     it "regular users cannot use merchant_path show page uri" do
-      click_button "Log Out"
+      click_link "Log Out"
       visit root_path
       click_link "Log In"
       fill_in :email, with: @customer_1.email
       fill_in :password, with: @customer_1.password
       click_button "Log In"
 
-      visit merchant_path(@merchant)
+      visit merchant_path(@customer_1)
 
-      expect(current_path).to eq()
+      expect(current_path).to eq(user_path(@customer_1))
+    end
+    it "admin sees profile page on merchant dashboard" do
+
+      visit merchant_path(@merchant)
+      
+      save_and_open_page
+      expect(page).to have_content(@merchant.name)
+      expect(page).to have_content(@merchant.street_address)
+      expect(page).to have_content(@merchant.city)
+      expect(page).to have_content(@merchant.state)
+      expect(page).to have_content(@merchant.zip)
+      expect(page).to have_content(@merchant.email)
     end
   end
 end
