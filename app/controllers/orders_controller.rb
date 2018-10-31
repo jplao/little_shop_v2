@@ -23,10 +23,7 @@ class OrdersController < ApplicationController
 
   def create
     order_items_array = OrderItem.cart_checkout(session[:cart])
-    binding.pry
-
-    new_order = Order.create(order_items: order_items_array)
-    
+    current_user.orders.create(order_items: order_items_array)
     redirect_to profile_orders_path
   end
 
