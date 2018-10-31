@@ -157,7 +157,7 @@ RSpec.describe 'visiting merchant dashboard' do
       click_button 'Update Item'
 
       expect(current_path).to eq(merchant_items_path(@merchant))
-      # expect(page).to have_content("Item Has Been Updated")
+      expect(page).to have_content("Item Has Been Updated")
 
       within "#item#{@item_1.id}" do
         expect(page).to have_content(new_item.name)

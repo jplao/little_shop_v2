@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       notice = toggle_item(params[:commit])
       redirect_to merchant_items_path(@item.user), notice: notice
     elsif current_admin?
-      notices = update_item(item_params)
+      notice = update_item(item_params)
       redirect_to merchant_items_path(@item.user), notice: notice
     elsif params[:commit] == "Disable" || params[:commit] == "Enable"
       notice = toggle_item(params[:commit])

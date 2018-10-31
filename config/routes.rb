@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   get '/merchants/:merchant_id/items', to: 'dashboard/items#index', as: :merchant_items
   get '/merchants/:merchant_id/items/new', to: 'dashboard/items#new', as: :new_merchant_item
   post '/merchants/:merchant_id/items', to: 'dashboard/items#create'
-  # get '/merchants/:id', to: 'users#show'
 
   namespace :admin do
     resources :users, only: [:update, :destroy]
