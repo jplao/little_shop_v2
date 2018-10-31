@@ -34,7 +34,9 @@ Rails.application.routes.draw do
   resources :items, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
   get '/merchants', to: 'users#index'
-  resources :merchants, only: [:show]
+  resources :merchants, only: [:show] do
+    resources :orders, only: [:index]
+  end
   # get '/merchants/:id', to: 'users#show'
 
   namespace :admin do
