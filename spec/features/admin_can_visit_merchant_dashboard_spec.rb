@@ -66,9 +66,6 @@ RSpec.describe 'visiting merchant dashboard' do
       end
 
       expect(page).to_not have_content("Number of Items: #{@order_3.item_count}")
-
-
     end
-
   end
 end
