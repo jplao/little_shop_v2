@@ -84,10 +84,15 @@ describe 'when any user visits the items index page' do
     end
 
     it 'shows top 3 merchants by time to fulfill' do
+      merchant = create(:user)
+      item = create(:item)
       order_item_1 = create(:order_item, fulfill: true, created_at: 1.days.ago)
       order_item_2 = create(:order_item, fulfill: true, created_at: 3.days.ago)
+
       order_item_3 = create(:order_item, fulfill: true, created_at: 1.days.ago)
       order_item_4 = create(:order_item, fulfill: true, created_at: 1.days.ago)
+
+      order_item_5 = create(:order_item, fulfill: true, created_at: 1.days.ago)
 
       visit items_path
       expect(page).to have_content("Merchants Who Ship Fastest")

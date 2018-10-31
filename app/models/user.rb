@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def self.ordered_by_time_to_fulfill(order, limit = 3)
-
+    Item.joins(:order_items).select('items.user_id', 'order_items.updated_at - order_items.created_at AS time')
     binding.pry
 
   end
