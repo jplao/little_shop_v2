@@ -15,4 +15,7 @@ class Order < ApplicationRecord
     joins(:items).where("items.user_id = #{user_id}").uniq
   end
 
+  def self.top_three_cities
+    select("users.city, count(orders.id) AS order_count").joins(:user).group("users.city").where(status: "complete").order('order_count desc').limit(3).uniq.pluck(:city)
+  end
 end

@@ -8,17 +8,33 @@ describe Order, type: :model do
     it {should have_many(:items).through(:order_items)}
   end
   describe "instance methods" do
-    it "count total items in an order" do
-      @user = create(:user)
-      @order = @user.orders.create(status: "pending")
+    before(:each) do
+      @user = create(:user, city: "Denver")
+      @user_2 = create(:user, city: "San Francisco")
+      @user_3 = create(:user, city: "Chattanooga")
+      @merchant = create(:user, role: 1)
+      @item, @item_2 = create_list(:item, 2, user: @merchant)
+
+      @order_1 = @user.orders.create(status: "complete")
       @order_2 = @user.orders.create(status: "complete")
-      @order_3 = @user.orders.create(status: "canceled")
+      @order_3 = @user_2.orders.create(status: "complete")
+      @order_4 = @user_3.orders.create(status: "complete")
+      @order_5 = @user_3.orders.create(status: "complete")
+      @order_6 = @user_3.orders.create(status: "complete")
+      @order_7 = @user.orders.create(status: "pending")
+      @order_8 = @user.orders.create(status: "pending")
+      @order_9 = @user.orders.create(status: "pending")
 
-      @item, @item_2 = create_list(:item, 2)
-      order_item = @order.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
-      order_item_2 = @order.order_items.create(item: @item_2, item_price: 2.00, item_quantity: 1)
-
-      expect(@order.item_count).to eq(4)
+      order_item = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
+      order_item_2 = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 1)
     end
-  end 
+
+    it "count total items in an order" do
+      expect(@order_1.item_count).to eq(4)
+    end
+
+    it "returns top three states where orders were shipped" do
+      expect(Order.top_three_cities).to eq(["Chattanooga", "Denver", "San Francisco"])
+    end
+  end
 end
