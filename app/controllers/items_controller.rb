@@ -17,7 +17,8 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if current_admin?
-      redirect_to merchant_items_path(@item)
+      notices = update_item(item_params)
+      redirect_to merchant_items_path(@item.user), notice: notice
     elsif params[:commit] == "Disable" || params[:commit] == "Enable"
       notice = toggle_item(params[:commit])
       redirect_to dashboard_items_path, notice: notice
