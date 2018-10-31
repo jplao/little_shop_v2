@@ -1,7 +1,12 @@
 <h2> My Items </h2>
 
 <div class="add_item">
-  <%= link_to "Add New Item", new_dashboard_item_path %>
+  <% if @merchant == current_user %>
+    <% path = new_dashboard_item_path %>
+  <% else %>
+    <% path = new_merchant_item_path(@merchant) %>
+  <% end %>
+  <%= link_to "Add New Item", path %>
 </div>
 
 <div class='items'>

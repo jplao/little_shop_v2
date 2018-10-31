@@ -8,7 +8,7 @@ RSpec.describe 'visiting merchant dashboard' do
       @merchant = create(:user, role: 1)
       @customer_1, @customer_2 = create_list(:user, 2)
 
-      @item_1, @item_2 = create_list(:item, 2)
+      @item_1, @item_2, @item_3 = create_list(:item, 3)
       @order_1, @order_2, @order_3 = create_list(:order, 3)
       @merchant.items = [@item_1, @item_2]
       @oi = @order_1.order_items.create(item: @item_1, item_price: 1.99, item_quantity: 10)
@@ -80,6 +80,7 @@ RSpec.describe 'visiting merchant dashboard' do
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("You don't have permission for that")
     end
+
     it "admin sees profile page on merchant dashboard" do
 
       visit merchant_path(@merchant)
@@ -91,5 +92,138 @@ RSpec.describe 'visiting merchant dashboard' do
       expect(page).to have_content(@merchant.zip)
       expect(page).to have_content(@merchant.email)
     end
+
+    it 'sees link to the merchant\'s items' do
+
+      visit merchant_path(@merchant)
+
+      click_on "Merchant Items"
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+    end
+
+    it 'sees all of merchants items' do
+
+      visit merchant_items_path(@merchant)
+
+      within "#item#{@item_1.id}" do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_1.price)
+        expect(page).to have_content(@item_1.inventory_count)
+      end
+
+      within "#item#{@item_2.id}" do
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content(@item_2.price)
+        expect(page).to have_content(@item_2.inventory_count)
+      end
+
+      expect(page).to_not have_content(@item_3.name)
+
+    end
+
+    it 'can add an item to merchant' do
+
+      visit merchant_items_path(@merchant)
+      click_on "Add New Item"
+      expect(current_path).to eq(new_merchant_item_path(@merchant))
+
+      fill_in :item_name, with: @item_1.name
+      fill_in :item_description, with: @item_1.description
+      fill_in :item_image, with: @item_1.image
+      fill_in :item_price, with: @item_1.price
+      fill_in :item_inventory_count, with: @item_1.inventory_count
+
+      click_button 'Create Item'
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("You have successfully added a new item")
+    end
+
+    it 'can edit a merchants item' do
+      new_item = create(:item)
+      visit merchant_items_path(@merchant)
+
+      within "#item#{@item_1.id}" do
+        click_on "Edit Item"
+      end
+
+      expect(current_path).to eq(edit_item_path(@item_1))
+
+      fill_in :item_name, with: new_item.name
+      fill_in :item_price, with: new_item.price
+      fill_in :item_inventory_count, with: new_item.inventory_count
+
+      click_button 'Update Item'
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("Item Has Been Updated")
+
+      within "#item#{@item_1.id}" do
+        expect(page).to have_content(new_item.name)
+        expect(page).to have_content(new_item.price)
+        expect(page).to have_content(new_item.inventory_count)
+      end
+    end
+
+    it 'can edit only a part of a merchants item ' do
+      new_item = create(:item)
+      visit merchant_items_path(@merchant)
+
+      within "#item#{@item_1.id}" do
+        click_on "Edit Item"
+      end
+
+      expect(current_path).to eq(edit_item_path(@item_1))
+
+      fill_in :item_price, with: new_item.price
+      fill_in :item_inventory_count, with: new_item.inventory_count
+
+      click_button 'Update Item'
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      # expect(page).to have_content("Item Has Been Updated")
+
+      within "#item#{@item_1.id}" do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(new_item.price)
+        expect(page).to have_content(new_item.inventory_count)
+      end
+    end
+
+    it 'can diasable a merchants item' do
+      visit merchant_items_path(@merchant)
+
+      within("#item#{@item_1.id}") do
+        click_button "Disable"
+      end
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("Item ##{@item_1.id} no longer for sale")
+
+      within("#item#{@item_1.id}") do
+        expect(page).to have_button("Enable")
+      end
+    end
+
+    it 'can enable a merchants item' do
+      visit merchant_items_path(@merchant)
+
+      within("#item#{@item_1.id}") do
+        click_button "Disable"
+      end
+
+      within("#item#{@item_1.id}") do
+        click_button "Enable"
+      end
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("Item ##{@item_1.id} now available for sale")
+
+      within("#item#{@item_1.id}") do
+        expect(page).to have_button("Disable")
+      end
+    end
+
   end
 end
