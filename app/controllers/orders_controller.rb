@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   def index
     if current_admin? && params[:user_id]
       @orders = Order.where(user_id: params[:user_id])
+    elsif current_admin? && params[:merchant_id]
+      @orders = Order.orders_of_merchant(params[:merchant_id])
     elsif current_admin?
       @orders = Order.all
     elsif current_user
