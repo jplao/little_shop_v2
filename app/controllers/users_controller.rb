@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-
   def index
+
     if params[:display] == "all"
       @users = User.all
       @header = "Users"
@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show
+
+    restrict_to_admin_or_self
     if current_admin? && params[:id]
       @user = User.find(params[:id])
       if @user.role == "merchant"
@@ -105,5 +107,9 @@ class UsersController < ApplicationController
     else
       nil
     end
+  end
+
+  def restrict_to_admin_or_self
+    super
   end
 end

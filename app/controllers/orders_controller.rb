@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  before_action :restrict_to_admin_or_self, only: [:index]
+
   def index
     if current_admin? && params[:user_id]
       @orders = Order.where(user_id: params[:user_id])
@@ -39,4 +41,11 @@ class OrdersController < ApplicationController
       redirect_to profile_orders_path
     end
   end
+
+  protected
+
+  def restrict_to_admin_or_self
+    super
+  end
+
 end
