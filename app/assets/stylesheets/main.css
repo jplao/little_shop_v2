@@ -80,6 +80,15 @@ header {
   grid-template-columns: 1fr 1fr;
 }
 
+.statistics{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #D7D8DC;
+  box-shadow: 10px 10px 8px #888888;
+  margin: 20px;
+  padding: 30px;
+}
+
 .trash-button{
   margin: 4px;
   font-size: 20px;
