@@ -49,5 +49,10 @@ describe Order, type: :model do
     it ".top_user_spending" do
       expect(Order.top_user_spending).to eq([@user_4.id, @user.id, @user_2.id])
     end
+
+    it ".top_orders_by_items" do
+      expect(Order.top_orders_by_items).to eq()
+    end
+    # top 3 orders by quantity of items
   end
 end
