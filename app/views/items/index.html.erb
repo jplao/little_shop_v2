@@ -17,6 +17,20 @@
     <% end %>
     </ul>
   </div>
+
+  <div class= "quick-merchants">
+    Merchants Who Ship Fastest
+    <% @quick_merch.each do |merch| %>
+      <%= merch.name %>
+    <% end %>
+  </div>
+
+  <div class= "slow-merchants">
+    Merchants Who Ship Slowest
+    <% @slow_merch.each do |merch| %>
+      <%= merch.name %>
+    <% end %>
+  </div>
 </div>
 <br>
 

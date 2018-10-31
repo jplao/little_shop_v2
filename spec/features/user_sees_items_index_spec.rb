@@ -82,4 +82,23 @@ describe 'when any user visits the items index page' do
         expect(page).not_to have_content(merch_4.name)
       end
     end
+
+    it 'shows top 3 merchants by time to fulfill' do
+      order_item_1 = create(:order_item, fulfill: true)
+      order_item_2 = create(:order_item, fulfill: true, updated_at: 3.days.ago)
+      order_item_3 = create(:order_item, fulfill: true)
+      order_item_4 = create(:order_item, fulfill: true)
+      
+      visit items_path
+      expect(page).to have_content("Merchants Who Ship Fastest")
+      expect(page).to have_content("Merchants Who Ship Slowest")
+
+      within(".quick-merchants") do
+        expect(page).to have_content(order_item_1.item.user.name)
+        expect(page).to have_content(order_item_2.item.user.name)
+        expect(page).to have_content(order_item_4.item.user.name)
+
+        expect(page).to_not have_content(order_item_3.item.user.name)
+      end
+    end
 end

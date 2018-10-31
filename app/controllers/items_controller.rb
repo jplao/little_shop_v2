@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
     @items = Item.where(active: true)
     @top_item = Item.top_items
     @top_merch = User.top_merchants
+    @quick_merch = User.ordered_by_time_to_filfill("DESC")
+    @slow_merch = User.ordered_by_time_to_filfill("ASC")
   end
 
   def show
