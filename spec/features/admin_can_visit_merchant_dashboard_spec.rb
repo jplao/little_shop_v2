@@ -165,5 +165,30 @@ RSpec.describe 'visiting merchant dashboard' do
       end
     end
 
+    it 'can edit only a part of a merchants item ' do
+      new_item = create(:item)
+      visit merchant_items_path(@merchant)
+
+      within "#item#{@item_1.id}" do
+        click_on "Edit Item"
+      end
+
+      expect(current_path).to eq(edit_item_path(@item_1))
+
+      fill_in :item_price, with: new_item.price
+      fill_in :item_inventory_count, with: new_item.inventory_count
+
+      click_button 'Update Item'
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      # expect(page).to have_content("Item Has Been Updated")
+
+      within "#item#{@item_1.id}" do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(new_item.price)
+        expect(page).to have_content(new_item.inventory_count)
+      end
+    end
+
   end
 end
