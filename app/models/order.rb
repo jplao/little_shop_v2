@@ -24,6 +24,7 @@ class Order < ApplicationRecord
   end
 
   def self.top_orders_by_items
-    select("orders.*", sum("order_items.item_quantity"))
+    select("orders.*, sum(order_items.item_quantity) AS item_count").joins(:order_items).group("orders.id").order("item_count desc").limit(3)
   end
+
 end

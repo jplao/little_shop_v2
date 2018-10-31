@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
       user_ids = Order.top_user_spending
       @top_spending_users = User.top_spending_users(user_ids)
       @top_three_states = Order.top_three_states
+      @top_orders_by_items = Order.top_orders_by_items
     else
       redirect_to root_path
     end

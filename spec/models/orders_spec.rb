@@ -51,7 +51,7 @@ describe Order, type: :model do
     end
 
     it ".top_orders_by_items" do
-      expect(Order.top_orders_by_items).to include([@order_5, @order_1, @order_3])
-    end 
+      expect(Order.top_orders_by_items).to eq([@order_5, @order_1, @order_3])
+    end
   end
 end

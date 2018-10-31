@@ -31,5 +31,13 @@
     <%end %>
   </ul>
 </div>
+<div class="top-orders-by-item-count">
+  <h2>Top Orders by Number of Items</h2>
+  <ul>
+    <% @top_orders_by_items.each do |order| %>
+    <li>Order ID: <%= order.id  %></li>
+    <%end %>
+  </ul>
+</div>
 <% end %>
 </div>

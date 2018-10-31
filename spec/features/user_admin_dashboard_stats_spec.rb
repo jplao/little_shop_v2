@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "when an admin visits dashboard page" do
-  it "it displays top states statistics" do
+  it "it displays top statistics" do
     @admin = create(:user, role: 2, password: "admin", email: "admin")
     @user = create(:user, state: "CO", city: "Denver")
     @user_2 = create(:user, state: "CA", city: "San Fran")
@@ -47,6 +47,18 @@ describe "when an admin visits dashboard page" do
       expect(page).to have_content("CO")
       expect(page).to have_content("CA")
       expect(page).to have_content("TN")
+    end
+
+    within(".top-spenders") do
+      expect(page).to have_content(@user_4.name)
+      expect(page).to have_content(@user.name)
+      expect(page).to have_content(@user_2.name)
+    end
+
+    within(".top-orders-by-item-count") do
+      expect(page).to have_content(@order_5.id)
+      expect(page).to have_content(@order_1.id)
+      expect(page).to have_content(@order_3.id)
     end
   end
 end
