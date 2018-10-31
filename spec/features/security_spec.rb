@@ -32,6 +32,12 @@ describe 'as a'do
       expect(page).to have_content("You don't have permission for that")
     end
 
+    it 'I can only edit my own profile data' do
+      visit edit_user_path(@user_2)
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("You don't have permission for that")
+    end
+
   end
 
   describe '  '
