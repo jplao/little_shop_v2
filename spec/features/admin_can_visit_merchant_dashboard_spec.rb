@@ -77,7 +77,8 @@ RSpec.describe 'visiting merchant dashboard' do
 
       visit merchant_path(@customer_1)
 
-      expect(current_path).to eq(user_path(@customer_1))
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("You don't have permission for that")
     end
 
     it "admin sees profile page on merchant dashboard" do
