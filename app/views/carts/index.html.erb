@@ -9,7 +9,7 @@
 
 <div id='checkout-notice'>
   <% if @current_user %>
-  <%= button_to "Checkout", profile_orders_path, class: "button" %>
+  <%= button_to "Checkout", orders_path, class: "button" %>
   <% else %>
     Please <%= link_to "Log In" ,login_path, class: "login-banner-link" %> or <%= link_to "Register" ,register_path, class: "register-banner-link" %> to Finish Checkout
   <% end %>

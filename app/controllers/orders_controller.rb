@@ -21,6 +21,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def create
+    order_items_array = OrderItem.cart_checkout(session[:cart])
+
+
+    new_order = Order.create(order_items: order_items_array)
+    binding.pry
+
+    redirect_to profile_orders_path
+  end
+
   def destroy
     order = Order.find(params[:id])
     order.update(status: "cancelled")
