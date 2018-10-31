@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show'
 
-  resources :orders, only: [:index, :show, :destroy]
+  resources :orders, only: [:index, :show, :destroy, :create]
 
   post '/cart', to: 'carts#create'
   get '/cart', to: 'carts#index'
