@@ -59,8 +59,8 @@ describe 'as a merchant' do
     fill_in :item_inventory_count, with: @item.inventory_count
 
     click_button 'Create Item'
-    expect(page).to have_content("All required fields must be filled in")
-    expect(current_path).to eq(new_dashboard_item_path)
+    expect(page).to have_content("Name can't be blank")
+
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
   end
@@ -74,8 +74,7 @@ describe 'as a merchant' do
     fill_in :item_inventory_count, with: @item.inventory_count
 
     click_button 'Create Item'
-    expect(page).to have_content("All required fields must be filled in")
-    expect(current_path).to eq(new_dashboard_item_path)
+    expect(page).to have_content("Description can't be blank")
 
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
@@ -91,8 +90,7 @@ describe 'as a merchant' do
     fill_in :item_inventory_count, with: @item.inventory_count
 
     click_button 'Create Item'
-    expect(page).to have_content("All required fields must be filled in")
-    expect(current_path).to eq(new_dashboard_item_path)
+    expect(page).to have_content("Price must be greater than 0")
 
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
@@ -108,8 +106,7 @@ describe 'as a merchant' do
     fill_in :item_inventory_count, with: 0
 
     click_button 'Create Item'
-    expect(page).to have_content("All required fields must be filled in")
-    expect(current_path).to eq(new_dashboard_item_path)
+    expect(page).to have_content("Inventory count must be greater than 0")
 
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
@@ -119,8 +116,10 @@ describe 'as a merchant' do
     visit new_dashboard_item_path
 
     click_button 'Create Item'
-    expect(page).to have_content("All required fields must be filled in")
-    expect(current_path).to eq(new_dashboard_item_path)
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Description can't be blank")
+    expect(page).to have_content("Price can't be blank")
+    expect(page).to have_content("Inventory count can't be blank")
 
     visit dashboard_items_path
     expect(page).to_not have_content(@item.name)
