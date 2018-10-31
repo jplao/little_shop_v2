@@ -9,9 +9,9 @@ describe Order, type: :model do
   end
   describe "instance methods" do
     before(:each) do
-      @user = create(:user, city: "Denver")
-      @user_2 = create(:user, city: "San Francisco")
-      @user_3 = create(:user, city: "Chattanooga")
+      @user = create(:user, state: "CO")
+      @user_2 = create(:user, state: "CA")
+      @user_3 = create(:user, state: "TN")
       @merchant = create(:user, role: 1)
       @item, @item_2 = create_list(:item, 2, user: @merchant)
 
@@ -34,7 +34,7 @@ describe Order, type: :model do
     end
 
     it "returns top three states where orders were shipped" do
-      expect(Order.top_three_cities).to eq(["Chattanooga", "Denver", "San Francisco"])
+      expect(Order.top_three_states).to eq(["TN", "CO", "CA"])
     end
   end
 end
