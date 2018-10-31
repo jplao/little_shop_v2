@@ -63,5 +63,6 @@ describe Item, type: :model do
       expect(Item.top_merchant_sales).to include(@merch_2.id)
       expect(Item.top_merchant_sales).to include(@merch_5.id)
     end
+
   end
 end

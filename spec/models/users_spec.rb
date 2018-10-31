@@ -52,7 +52,7 @@ describe User, type: :model do
     it '.top_spending_users' do
       user_1, user_2, user_3 = create_list(:user, 3)
 
-      expect(User.top_spending_users([user_1.id, user_2.id, user_3.id])).to include(user_1, user_2, user_3)
+      expect(User.return_user_objects([user_1.id, user_2.id, user_3.id])).to include(user_1, user_2, user_3)
     end
   end
 end

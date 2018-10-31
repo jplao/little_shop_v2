@@ -15,6 +15,12 @@ describe "when an admin visits dashboard page" do
 
     @merchant = create(:user, role: 1)
     @item, @item_2 = create_list(:item, 2, user: @merchant)
+    @merchant_2 = create(:user, role: 1)
+    @item_3 = create(:item, user: @merchant_2)
+    @merchant_3 = create(:user, role: 1)
+    @item_4 = create(:item, user: @merchant_3)
+    @merchant_4 = create(:user, role: 1)
+    @item_5 = create(:item, user: @merchant_4)
 
     @order_1 = @user.orders.create(status: "complete")
     @order_2 = @user.orders.create(status: "complete")
@@ -29,11 +35,14 @@ describe "when an admin visits dashboard page" do
     @order_11 = @user_6.orders.create(status: "complete")
     @order_12 = @user_7.orders.create(status: "complete")
 
-    order_item = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
-    order_item_2 = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 1)
-    order_item_3 = @order_3.order_items.create(item: @item, item_price: 4.00, item_quantity: 3)
-    order_item_4 = @order_4.order_items.create(item: @item_2, item_price: 4.00, item_quantity: 2)
-    order_item_5 = @order_5.order_items.create(item: @item_2, item_price: 4.00, item_quantity: 5)
+    order_item = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 3, fulfill: true)
+    order_item_2 = @order_1.order_items.create(item: @item, item_price: 4.00, item_quantity: 1, fulfill: true)
+    order_item_3 = @order_3.order_items.create(item: @item, item_price: 4.00, item_quantity: 3, fulfill: true)
+    order_item_4 = @order_4.order_items.create(item: @item_2, item_price: 4.00, item_quantity: 2, fulfill: true)
+    order_item_5 = @order_5.order_items.create(item: @item_2, item_price: 4.00, item_quantity: 5, fulfill: true)
+    order_item_6 = @order_5.order_items.create(item: @item_3, item_price: 3.00, item_quantity: 1, fulfill: true)
+    order_item_7 = @order_5.order_items.create(item: @item_4, item_price: 4.00, item_quantity: 10, fulfill: true)
+    order_item_8 = @order_5.order_items.create(item: @item_5, item_price: 2.00, item_quantity: 10, fulfill: true)
 
     visit root_path
     click_link "Log In"
@@ -59,6 +68,12 @@ describe "when an admin visits dashboard page" do
       expect(page).to have_content(@order_5.id)
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content(@order_3.id)
+    end
+
+    within(".top-merchants-by-earnings") do
+      expect(page).to have_content(@merchant.name)
+      expect(page).to have_content(@merchant_3.name)
+      expect(page).to have_content(@merchant_4.name)
     end
   end
 end

@@ -39,5 +39,13 @@
     <%end %>
   </ul>
 </div>
+<div class="top-merchants-by-earnings">
+  <h2>Top Merchants By Earnings</h2>
+  <ul>
+    <% @top_merchants_by_sales.each do |merchant| %>
+    <li><%= merchant.name  %></li>
+    <%end %>
+  </ul>
+</div>
 <% end %>
 </div>
