@@ -1,7 +1,19 @@
 <br>
 <div class='form'>
+
   <h2>New Item</h2>
-  <%= form_for @item do |f| %>
+  <%= form_for [@merchant, @item], url: merchant_items_path(@merchant) do |f| %>
+    <% if @item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+        <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= f.label :name %>:
     <%= f.text_field :name %>
 
@@ -17,7 +29,7 @@
     <br><%= f.label :inventory_count %>:
     <%= f.text_field :inventory_count %>
 
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :user_id, value: @merchant.id %>
     <%= f.hidden_field :active, value: true %>
 
     <br><%= f.submit %>
