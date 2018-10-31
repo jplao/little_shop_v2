@@ -19,4 +19,7 @@ class User < ApplicationRecord
     User.where(id: ids)
   end
 
+  def self.top_spending_users(user_id_array)
+    User.where(id: user_id_array)
+  end
 end

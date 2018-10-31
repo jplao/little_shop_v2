@@ -1,12 +1,33 @@
-<br><h2>Merchant Dashboard</h2>
-<div class="dashboard">
-  <div class="dashboard_orders">
-    <% if @merchant.merchant_orders != [] %>
-      <%= link_to "Orders", dashboard_orders_path %>
-      <% end %>
+<% if current_user.role == "merchant" %>
+  <br><h2>Merchant Dashboard</h2>
+  <div class="dashboard">
+    <div class="dashboard_orders">
+      <% if @merchant.merchant_orders != [] %>
+        <%= link_to "Orders", dashboard_orders_path %>
+        <% end %>
+    </div>
+    <br>
+    <div class="dashboard_items">
+      <%= link_to "My Items", dashboard_items_path %>
+    </div>
   </div>
-  <br>
-  <div class="dashboard_items">
-    <%= link_to "My Items", dashboard_items_path %>
-  </div>
+<% elsif current_admin? %>
+<div class="statistics">Statistics
+<div class="top-spenders">
+  <h2>Top Spenders</h2>
+  <ul>
+  <% @top_spending_users.each do |user|  %>
+    <li><%= user.name  %></li>
+  <% end %>
+  </ul>
+</div>
+<div class="top-states">
+  <h2>Top States by Number of Orders</h2>
+  <ul>
+    <% @top_three_states.each do |state| %>
+      <li><%= state  %></li>
+    <%end %>
+  </ul>
+</div>
+<% end %>
 </div>

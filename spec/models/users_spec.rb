@@ -47,5 +47,9 @@ describe User, type: :model do
       expect(User.top_merchants).to include(merch_5)
       expect(User.top_merchants).to include(merch_6)
     end
+    it '.top_spending_users' do
+      user_1, user_2, user_3 = create_list(:user, 3)
+      expect(User.top_spending_users([user_1.id, user_2.id, user_3.id])).to include(user_1, user_2, user_3)
+    end
   end
 end
