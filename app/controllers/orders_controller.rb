@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   def index
     if current_admin? && params[:user_id]
       @orders = Order.where(user_id: params[:user_id])
+    elsif current_admin? && params[:merchant_id]
+      @orders = Order.orders_of_merchant(params[:merchant_id])
     elsif current_admin?
       @orders = Order.all
     elsif current_user
@@ -19,6 +21,12 @@ class OrdersController < ApplicationController
       @order = Order.find(params[:id])
       @order_items = OrderItem.where(order_id: @order.id)
     end
+  end
+
+  def create
+    order_items_array = OrderItem.cart_checkout(session[:cart])
+    current_user.orders.create(order_items: order_items_array)
+    redirect_to profile_orders_path
   end
 
   def destroy

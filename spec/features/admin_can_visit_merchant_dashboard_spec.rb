@@ -11,11 +11,10 @@ RSpec.describe 'visiting merchant dashboard' do
       @item_1, @item_2 = create_list(:item, 2)
       @order_1, @order_2, @order_3 = create_list(:order, 3)
       @merchant.items = [@item_1, @item_2]
-      @order_1.order_items.create(item: @item_1, item_price: 1.99, item_quantity: 10)
-      @order_2.order_items.create(item: @item_2, item_price: 3.99, item_quantity: 5)
+      @oi = @order_1.order_items.create(item: @item_1, item_price: 1.99, item_quantity: 10)
+      @oi_2 = @order_2.order_items.create(item: @item_2, item_price: 3.99, item_quantity: 5)
       @customer_1.orders = [@order_1, @order_2]
       @customer_2.orders = [@order_3]
-
 
       visit root_path
       click_link "Log In"
