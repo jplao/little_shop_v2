@@ -67,5 +67,18 @@ RSpec.describe 'visiting merchant dashboard' do
 
       expect(page).to_not have_content("Number of Items: #{@order_3.item_count}")
     end
+
+    it "regular users cannot use merchant_path show page uri" do
+      click_button "Log Out"
+      visit root_path
+      click_link "Log In"
+      fill_in :email, with: @customer_1.email
+      fill_in :password, with: @customer_1.password
+      click_button "Log In"
+
+      visit merchant_path(@merchant)
+
+      expect(current_path).to eq()
+    end
   end
 end
