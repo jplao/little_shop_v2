@@ -1,7 +1,10 @@
 <br>
-<h2><%= @merchant.name %></h2>
-<%= button_to "Downgrade User", user_path(@merchant, toggle: "merchant"), method: :patch, class: "button" %>
+<h2><%= @user.name %></h2>
+<%= button_to "Downgrade User", user_path(@user, toggle: "merchant"), method: :patch, class: "button" %>
+<br>
+<div>
+  <%= render partial: "./partials/profile" %>
+</div>
+<%= link_to "Edit Merchant Profile", edit_user_path(@user), class: "edit-merchant-button" %>
 <br><br>
-<%= link_to "Edit Merchant Profile", edit_user_path(@merchant), class: "edit-merchant-button" %>
-<br><br>
-<%= link_to "Merchant Orders", merchant_orders_path(@merchant), class: "merchant-orders-button" %>
+<%= link_to "Merchant Orders", merchant_orders_path(@user), class: "merchant-orders-button" %>
