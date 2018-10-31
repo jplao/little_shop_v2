@@ -19,9 +19,9 @@ class User < ApplicationRecord
     User.where(id: ids)
   end
 
-  def self.ordered_by_time_to_filfill(order, limit = 3)
+  def self.ordered_by_time_to_fulfill(order, limit = 3)
 
-
+    binding.pry
 
   end
 
