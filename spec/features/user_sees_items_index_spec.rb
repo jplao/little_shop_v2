@@ -85,25 +85,35 @@ describe 'when any user visits the items index page' do
 
     it 'shows top 3 merchants by time to fulfill' do
       merchant = create(:user)
-      item = create(:item)
-      order_item_1 = create(:order_item, fulfill: true, created_at: 1.days.ago)
-      order_item_2 = create(:order_item, fulfill: true, created_at: 3.days.ago)
+      item_1 = create(:item)
+      item_2 = create(:item)
 
-      order_item_3 = create(:order_item, fulfill: true, created_at: 1.days.ago)
-      order_item_4 = create(:order_item, fulfill: true, created_at: 1.days.ago)
+      order_item_1 = item_1.order_items.create(fulfill: true, created_at: 10.days.ago)
+      order_item_2 = item_1.order_items.create(fulfill: true, created_at: 15.days.ago)
 
-      order_item_5 = create(:order_item, fulfill: true, created_at: 1.days.ago)
+      order_item_3 = item_2.order_items.create(fulfill: true, created_at: 1.days.ago)
+      order_item_4 = item_2.order_items.create(fulfill: true, created_at: 2.days.ago)
+
+      order_item_5 = create(:order_item, fulfill: true, created_at: 5.days.ago)
+      order_item_6 = create(:order_item, fulfill: true, created_at: 6.days.ago)
+      order_item_7 = create(:order_item, fulfill: true, created_at: 7.days.ago)
+      order_item_8 = create(:order_item, fulfill: true, created_at: 3.days.ago)
 
       visit items_path
       expect(page).to have_content("Merchants Who Ship Fastest")
       expect(page).to have_content("Merchants Who Ship Slowest")
-
+      binding.pry
       within(".quick-merchants") do
-        expect(page).to have_content(order_item_1.item.user.name)
+
         expect(page).to have_content(order_item_3.item.user.name)
         expect(page).to have_content(order_item_4.item.user.name)
+        expect(page).to have_content(order_item_5.item.user.name)
+        expect(page).to have_content(order_item_8.item.user.name)
 
+        expect(page).to_not have_content(order_item_1.item.user.name)
         expect(page).to_not have_content(order_item_2.item.user.name)
+        expect(page).to_not have_content(order_item_6.item.user.name)
+        expect(page).to_not have_content(order_item_7.item.user.name)
       end
     end
 end
