@@ -17,4 +17,12 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  def restrict_to_admin_or_self
+    if params[:user_id] || params[:id]
+      unless current_admin? || current_user.id == params[:user_id]
+        redirect_to profile_path, notice: "You don't have permission for that"
+      end
+    end
+  end
+
 end
