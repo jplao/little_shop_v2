@@ -83,7 +83,6 @@ RSpec.describe 'visiting merchant dashboard' do
 
       visit merchant_path(@merchant)
       
-      save_and_open_page
       expect(page).to have_content(@merchant.name)
       expect(page).to have_content(@merchant.street_address)
       expect(page).to have_content(@merchant.city)
