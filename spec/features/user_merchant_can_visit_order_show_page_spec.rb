@@ -52,7 +52,7 @@ describe "when a merchant visits the orders page from the dashbaord" do
   it "they can click button to fulfill an item" do
 
     visit order_path(@order)
-    save_and_open_page
+   
     within("#oi#{@order_item.id}") do
       click_button("Fulfill")
     end
