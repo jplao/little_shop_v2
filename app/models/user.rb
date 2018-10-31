@@ -25,4 +25,8 @@ class User < ApplicationRecord
 
   end
 
+  def self.return_user_objects(user_id_array)
+    where(id: user_id_array)
+  end
+
 end
