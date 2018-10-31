@@ -149,7 +149,7 @@ RSpec.describe 'visiting merchant dashboard' do
 
       expect(current_path).to eq(edit_item_path(@item_1))
 
-      fill_in :item_name, with: "New name"
+      fill_in :item_name, with: new_item.name
       fill_in :item_price, with: new_item.price
       fill_in :item_inventory_count, with: new_item.inventory_count
 
@@ -159,7 +159,7 @@ RSpec.describe 'visiting merchant dashboard' do
       # expect(page).to have_content("Item Has Been Updated")
 
       within "#item#{@item_1.id}" do
-        expect(page).to have_content("New name")
+        expect(page).to have_content(new_item.name)
         expect(page).to have_content(new_item.price)
         expect(page).to have_content(new_item.inventory_count)
       end
@@ -187,6 +187,40 @@ RSpec.describe 'visiting merchant dashboard' do
         expect(page).to have_content(@item_1.name)
         expect(page).to have_content(new_item.price)
         expect(page).to have_content(new_item.inventory_count)
+      end
+    end
+
+    it 'can diasable a merchants item' do
+      visit merchant_items_path(@merchant)
+
+      within("#item#{@item_1.id}") do
+        click_button "Disable"
+      end
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("Item ##{@item_1.id} no longer for sale")
+
+      within("#item#{@item_1.id}") do
+        expect(page).to have_button("Enable")
+      end
+    end
+
+    it 'can enable a merchants item' do
+      visit merchant_items_path(@merchant)
+
+      within("#item#{@item_1.id}") do
+        click_button "Disable"
+      end
+
+      within("#item#{@item_1.id}") do
+        click_button "Enable"
+      end
+
+      expect(current_path).to eq(merchant_items_path(@merchant))
+      expect(page).to have_content("Item ##{@item_1.id} now available for sale")
+
+      within("#item#{@item_1.id}") do
+        expect(page).to have_button("Disable")
       end
     end
 

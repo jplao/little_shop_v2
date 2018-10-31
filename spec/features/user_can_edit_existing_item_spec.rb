@@ -53,7 +53,7 @@ describe 'as a merchant' do
     expect(page).to have_content("Inventory Count: #{@item.inventory_count}")
   end
 
-  it 'user can update information of an existing item' do
+  it 'info wont be updated if incorrect' do
     new_name = "New_Item"
     new_price = 0
     new_count = 0
