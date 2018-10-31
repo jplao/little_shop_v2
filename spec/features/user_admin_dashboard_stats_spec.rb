@@ -11,7 +11,7 @@ describe "when an admin visits dashboard page" do
     @user_6 = create(:user, state: "CO", city: "Boulder")
     @user_7 = create(:user, state: "CO", city: "Ft Collins")
     @user_8 = create(:user, state: "CA", city: "San Diego")
-    @user_9 = create(:user, state: "CA", city: "Los Angeles")
+    @user_9 = create(:user, state: "KY", city: "Louisville")
 
     @merchant = create(:user, role: 1)
     @item, @item_2 = create_list(:item, 2, user: @merchant)
@@ -42,7 +42,7 @@ describe "when an admin visits dashboard page" do
     click_button "Log In"
 
     click_link "My Dashboard"
-    save_and_open_page
+
     within(".top-states") do
       expect(page).to have_content("CO")
       expect(page).to have_content("CA")
