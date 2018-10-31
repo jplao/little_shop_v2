@@ -86,3 +86,20 @@ Order.all.each do |order|
     order_item = order.order_items.create(item_id: item.id, item_price: item.price, item_quantity: rand(1..10), fulfill: [true,false].sample)
   end
 end
+
+# User Orders Complete
+User.all.each do |user|
+  number_of_orders = rand(0..5)
+  number_of_orders.times do
+    order = user.orders.create(status: "complete")
+  end
+end
+
+# Order Items Fulfilled
+Order.all.each do |order|
+  number_of_items = rand(1..5)
+  number_of_items.times do
+    item = Item.all.shuffle.pop
+    order_item = order.order_items.create(item_id: item.id, item_price: item.price, item_quantity: rand(1..5), fulfill: true)
+  end
+end

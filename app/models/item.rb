@@ -31,6 +31,7 @@ class Item < ApplicationRecord
      .pluck(:user_id)
   end
 
-
-
+  def self.top_merchant_sales
+    select("items.user_id, sum(order_items.item_quantity * order_items.item_price) AS total_earned").joins(:order_items).group("items.user_id, order_items.order_id, items.id").where("order_items.fulfill = true", "order_items.order.status = complete").order("total_earned desc").limit(3).uniq.pluck(:user_id)
+  end
 end
