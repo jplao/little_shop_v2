@@ -22,4 +22,8 @@ class Order < ApplicationRecord
   def self.top_user_spending
     select("orders.*, sum(order_items.item_quantity * order_items.item_price) AS total_spent").joins(:order_items).group("orders.user_id, order_items.order_id, orders.id").order("total_spent desc").limit(3).uniq.pluck(:user_id)
   end
+
+  def self.top_orders_by_items
+    select("orders.*", sum("order_items.item_quantity"))
+  end
 end
