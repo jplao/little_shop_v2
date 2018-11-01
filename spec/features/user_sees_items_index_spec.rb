@@ -84,20 +84,20 @@ describe 'when any user visits the items index page' do
     end
 
     it 'shows top 3 merchants by time to fulfill' do
-      merchant = create(:user)
       item_1 = create(:item)
       item_2 = create(:item)
 
-      order_item_1 = item_1.order_items.create(fulfill: true, created_at: 10.days.ago)
-      order_item_2 = item_1.order_items.create(fulfill: true, created_at: 15.days.ago)
+      order_item_1 = create(:order_item,fulfill: true, created_at: 10.days.ago.to_date, item: item_1)
+      order_item_2 = create(:order_item,fulfill: true, created_at: 15.days.ago.to_date, item: item_1)
 
-      order_item_3 = item_2.order_items.create(fulfill: true, created_at: 1.days.ago)
-      order_item_4 = item_2.order_items.create(fulfill: true, created_at: 2.days.ago)
+      order_item_3 = create(:order_item,fulfill: true, created_at: 1.days.ago.to_date, item: item_2)
+      order_item_4 = create(:order_item,fulfill: true, created_at: 2.days.ago.to_date, item: item_2)
 
-      order_item_5 = create(:order_item, fulfill: true, created_at: 5.days.ago)
-      order_item_6 = create(:order_item, fulfill: true, created_at: 6.days.ago)
-      order_item_7 = create(:order_item, fulfill: true, created_at: 7.days.ago)
-      order_item_8 = create(:order_item, fulfill: true, created_at: 3.days.ago)
+      order_item_5 = create(:order_item, fulfill: true, created_at: 5.days.ago.to_date)
+      order_item_6 = create(:order_item, fulfill: true, created_at: 6.days.ago.to_date)
+      order_item_7 = create(:order_item, fulfill: true, created_at: 7.days.ago.to_date)
+      order_item_8 = create(:order_item, fulfill: true, created_at: 3.days.ago.to_date)
+
 
       visit items_path
       expect(page).to have_content("Merchants Who Ship Fastest")
