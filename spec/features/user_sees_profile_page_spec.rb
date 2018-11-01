@@ -25,12 +25,6 @@ describe 'user sees profile page' do
       click_link 'Log Out'
     end
 
-    it "displays profile stats" do
-      visit profile_path
-      expect(page).to have_content("Statistics")
-      click_link 'Log Out'
-    end
-
     it "shows no orders link if user has no orders" do
       visit profile_path
 
