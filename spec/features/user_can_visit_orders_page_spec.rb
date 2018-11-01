@@ -146,4 +146,12 @@ describe "when user visits an order index page" do
     expect(page).to have_content(@order_3.id)
     expect(page).not_to have_content(@order_5.id)
   end
+  it "visitor cannot visit the orders index page" do
+    click_on "Log Out"
+
+    visit orders_path
+
+    expect(current_path).to eq(login_path)
+    expect(page).to have_content("You are not logged in")
+  end
 end

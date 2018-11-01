@@ -113,8 +113,11 @@ describe 'user sees profile page' do
       expect(current_path).to eq(merchant_path(merchant))
     end
 
+    it 'redirects to profile_path if user being passed in is an admin' do
+
+      visit user_path(@admin)
+
+      expect(current_path).to eq(profile_path)
+    end
   end
-
-
-
 end
