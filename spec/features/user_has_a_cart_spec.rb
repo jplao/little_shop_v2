@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'cart functionality' do
   before :each do
 
-    @item_1 = create(:item, inventory_count: 3)
-    @item_2 = create(:item, inventory_count: 3)
+    @item_1 = create(:item, inventory_count: 3, price: 2.01)
+    @item_2 = create(:item, inventory_count: 3, price: 5.31)
     @merchant_1, @merchant_2 = create_list(:user, 2)
 
     @merchant_1.items = [@item_1]

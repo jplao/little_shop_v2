@@ -26,8 +26,6 @@ describe 'user sees profile page' do
     end
 
     it "displays profile stats" do
-      # TODO Flesh this out
-
       visit profile_path
       expect(page).to have_content("Statistics")
       click_link 'Log Out'
