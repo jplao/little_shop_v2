@@ -21,4 +21,10 @@ describe 'checkout process' do
     expect(page).to have_content('pending')
     expect(page).to have_content('$5.00')
   end
+  it "user can't checkout if no items are in the cart" do
+    click_on 'Shopping Cart'
+    click_on 'Checkout'
+    expect(current_path).to eq(profile_orders_path)
+    expect(page).to have_content("You have no items in your cart")
+  end
 end

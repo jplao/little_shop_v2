@@ -31,8 +31,8 @@ class OrdersController < ApplicationController
       current_user.orders.create(order_items: order_items_array)
       redirect_to profile_orders_path
     else
-      redirect_to profile_orders_path
-    end 
+      redirect_to profile_orders_path, notice: "You have no items in your cart"
+    end
   end
 
   def destroy
