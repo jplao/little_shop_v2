@@ -17,8 +17,6 @@ class Cart
         hash[item] = count
         hash
       end
-    else
-      {}
     end
   end
 
@@ -30,10 +28,7 @@ class Cart
     elsif method == "remove"
       @contents.delete(item_id.to_s)
     end
-
   end
-
-  # private
 
   def add_item(item_id)
     item_count = Item.find(item_id).inventory_count

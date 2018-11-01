@@ -224,6 +224,10 @@ RSpec.describe 'visiting merchant dashboard' do
         expect(page).to have_button("Disable")
       end
     end
+    it 'if trying to visit merchant show page for a merchant, it will redirect to profile page' do
+      visit merchant_path(@admin)
 
+      expect(current_path).to eq(profile_path)
+    end
   end
 end
