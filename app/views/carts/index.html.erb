@@ -20,8 +20,8 @@
 <% @items.each do |item, quantity| %>
   <div class="each_item" id="item-<%= item.id %>" >
     <h3><%= item.name %></h3>
-    Seller: <%= item.user.name %>
-    <img src=<%= item.image %> >
+    Seller: <%= item.user.name %><br>
+    <img src=<%= item.image %> ><br>
     Price: <%= number_to_currency(item.price) %><br>
     Quantity: <%= quantity %>
       <%= button_to "➕", cart_path(item_id: item.id, thing_to_do: :more), method: :put, class: "trash-button" %>

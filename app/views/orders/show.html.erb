@@ -14,7 +14,7 @@ Buyer Address: <%= @user.street_address %><br>
       Price: <%= number_to_currency(oi.item_price) %><br>
       Quantity: <%= oi.item_quantity %><br>
       <%= "Status: Fulfilled" if oi.fulfill %>
-      <% if oi.item_quantity <=  oi.item.inventory_count %>
+      <% if (oi.item_quantity <=  oi.item.inventory_count) && oi.fulfill == false %>
         <%= form_for oi, url: order_item_path(oi), method: :patch do |f| %>
           <%= f.hidden_field :fulfill, :value => true %>
           <%= f.hidden_field :order_id, :value => oi.order_id %>
