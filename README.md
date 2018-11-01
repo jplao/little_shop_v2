@@ -39,24 +39,6 @@ From terminal run: rspec
 
 After RSpec has completed, you should see all tests passing as GREEN.  Any tests that have failed or thrown an error will display RED.  Any tests that have been skipped will be displayed as YELLOW.
 
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-
 ## Built With
 
 * Rails
@@ -75,7 +57,7 @@ Give an example
 
 ## Versioning
 
-GitHub
+GitHub, lots of GitHub
 
 ## Authors
 
